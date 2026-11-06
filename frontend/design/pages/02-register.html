@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<!--
+  Hallmark · macrostructure: Narrative Workflow (2-step register) · tone: playful-cinema
+  page: Register — FREE trial · No payment · 3 episodes free · no CC required
+  steps: 1) Create account  2) Trial started (you're in!)
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Create Free Account — SeryeKo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Geist:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip;min-height:100dvh;background:oklch(10% 0.012 285);color:oklch(94% 0.006 285);font-family:"Geist",ui-sans-serif,system-ui,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased;}
+:root{
+  --paper:oklch(10% 0.012 285);--paper-2:oklch(14% 0.013 285);--paper-3:oklch(18% 0.014 285);
+  --rule:oklch(28% 0.010 285);--muted:oklch(48% 0.008 285);--neutral:oklch(62% 0.006 285);
+  --ink:oklch(94% 0.006 285);--accent:oklch(68% 0.220 15);--accent-2:oklch(75% 0.180 20);
+  --focus:oklch(72% 0.210 15);--error:oklch(60% 0.22 25);--success:oklch(65% 0.17 145);
+  --font-d:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --font-b:"Geist",ui-sans-serif,system-ui,sans-serif;
+  --font-o:"Space Mono",ui-monospace,monospace;
+  --r-sm:0.375rem;--r-md:0.75rem;--r-lg:1.25rem;--r-xl:1.75rem;--r-pill:100vmax;
+  --dur:200ms;--ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+.page{min-height:100dvh;display:grid;grid-template-rows:auto auto 1fr;}
+
+/* ── Top bar ─────────────────────────────────────────────── */
+.topbar{padding:1.25rem clamp(1.25rem,5vw,3rem);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);}
+.brand{font-family:var(--font-d);font-weight:800;font-size:1.25rem;letter-spacing:-0.02em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:0.4rem;}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;}
+.topbar-signin{font-size:0.85rem;color:var(--muted);text-decoration:none;}
+.topbar-signin span{color:var(--accent);}
+.topbar-signin:hover span{text-decoration:underline;}
+
+/* ── Step rail — 2 steps ────────────────────────────────── */
+.step-rail{display:flex;align-items:center;justify-content:center;gap:0;padding:1.25rem clamp(1.25rem,5vw,3rem);}
+.step-item{display:flex;align-items:center;gap:0.5rem;}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-o);font-size:0.64rem;font-weight:700;border:2px solid var(--rule);color:var(--muted);transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease),color var(--dur) var(--ease);}
+.step-dot.active{border-color:var(--accent);background:oklch(68% 0.220 15/0.12);color:var(--accent);}
+.step-dot.done{border-color:var(--success);background:oklch(65% 0.17 145/0.12);color:var(--success);}
+.step-label{font-family:var(--font-d);font-size:0.75rem;font-weight:600;color:var(--muted);white-space:nowrap;}
+.step-label.active{color:var(--ink);}
+.step-connector{width:clamp(2rem,8vw,5rem);height:1px;background:var(--rule);margin:0 0.5rem;flex-shrink:0;}
+
+/* ── Main content ───────────────────────────────────────── */
+.main{display:flex;flex-direction:column;align-items:center;padding:1rem clamp(1.25rem,5vw,3rem) 3rem;}
+.step-panel{display:none;}
+.step-panel.visible{display:block;}
+
+/* ── Form card ──────────────────────────────────────────── */
+.form-card{width:100%;max-width:480px;background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-xl);padding:clamp(1.5rem,4vw,2.5rem);}
+.form-card h2{font-family:var(--font-d);font-weight:800;font-size:clamp(1.6rem,4vw,2.2rem);letter-spacing:-0.025em;color:var(--ink);line-height:1.1;margin-bottom:0.5rem;}
+.form-card .sub{font-size:0.9rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5;}
+.form-card .sub a{color:var(--accent);text-decoration:none;font-weight:500;}
+.form-card .sub a:hover{text-decoration:underline;}
+
+/* ── Free trial callout ─────────────────────────────────── */
+.trial-callout{
+  display:flex;align-items:flex-start;gap:0.75rem;
+  padding:0.875rem 1.125rem;
+  background:oklch(65% 0.17 145/0.07);
+  border:1px solid oklch(65% 0.17 145/0.28);
+  border-radius:var(--r-lg);
+  margin-bottom:1.625rem;
+}
+.trial-callout-icon{width:34px;height:34px;border-radius:50%;background:oklch(65% 0.17 145/0.14);display:flex;align-items:center;justify-content:center;color:var(--success);flex-shrink:0;margin-top:0.1rem;}
+.trial-callout-body{flex:1;}
+.trial-callout-heading{font-family:var(--font-d);font-weight:700;font-size:0.9rem;color:var(--ink);margin-bottom:0.2rem;}
+.trial-callout-list{list-style:none;display:flex;flex-direction:column;gap:0.25rem;}
+.trial-callout-list li{font-size:0.78rem;color:oklch(65% 0.17 145);display:flex;align-items:center;gap:0.375rem;}
+.trial-callout-list li::before{content:"✓";font-weight:700;flex-shrink:0;}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btn-google{display:flex;align-items:center;justify-content:center;gap:0.75rem;width:100%;padding:0.875rem 1.5rem;background:var(--paper-3);border:1px solid var(--rule);border-radius:var(--r-pill);font-family:var(--font-d);font-weight:600;font-size:0.95rem;color:var(--ink);cursor:pointer;text-decoration:none;white-space:nowrap;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease);}
+.btn-google:hover{background:oklch(22% 0.014 285);border-color:oklch(38% 0.012 285);}
+.btn-google:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:0.5rem;width:100%;padding:1rem 1.5rem;background:var(--accent);border:none;border-radius:var(--r-pill);font-family:var(--font-d);font-weight:700;font-size:1.05rem;color:oklch(8% 0.010 285);cursor:pointer;text-decoration:none;transition:background var(--dur) var(--ease),transform 100ms var(--ease);white-space:nowrap;}
+.btn-primary:hover{background:var(--accent-2);transform:translateY(-1px);}
+.btn-primary:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+.btn-primary:active{transform:translateY(0);}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider{display:flex;align-items:center;gap:1rem;margin:1.25rem 0;}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--rule);}
+.divider span{font-family:var(--font-o);font-size:0.64rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;}
+
+/* ── Form fields ─────────────────────────────────────────── */
+.fg{display:flex;flex-direction:column;gap:0.375rem;margin-bottom:1.125rem;}
+.fl{font-family:var(--font-d);font-weight:600;font-size:0.78rem;color:var(--neutral);letter-spacing:0.04em;}
+.fi{width:100%;padding:0.875rem 1rem;background:oklch(11% 0.012 285);border:1.5px solid var(--rule);border-radius:var(--r-md);font-family:var(--font-b);font-size:1rem;color:var(--ink);outline:none;-webkit-appearance:none;appearance:none;transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease);}
+.fi::placeholder{color:oklch(38% 0.008 285);}
+.fi:focus{border-color:var(--accent);box-shadow:0 0 0 3px oklch(68% 0.220 15/0.15);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+@media(max-width:32rem){.field-row{grid-template-columns:1fr;}}
+.input-wrap{position:relative;}
+.input-wrap .fi{padding-right:3rem;}
+.pw-toggle{position:absolute;right:1rem;top:50%;translate:0 -50%;background:none;border:none;cursor:pointer;color:var(--muted);display:flex;align-items:center;padding:0;transition:color var(--dur) var(--ease);}
+.pw-toggle:hover{color:var(--neutral);}
+.pw-toggle:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px;}
+.terms-check{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:1rem;cursor:pointer;}
+.terms-check input[type=checkbox]{width:16px;height:16px;margin-top:2px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
+.terms-check span{font-size:0.825rem;color:var(--muted);line-height:1.5;}
+.terms-check a{color:var(--accent);text-decoration:none;}
+.terms-check a:hover{text-decoration:underline;}
+
+/* ── No card note ───────────────────────────────────────── */
+.no-card-note{display:flex;align-items:center;gap:0.5rem;margin-bottom:1.125rem;padding:0.625rem 0.875rem;background:oklch(14% 0.013 285);border:1px solid var(--rule);border-radius:var(--r-md);font-family:var(--font-o);font-size:0.62rem;letter-spacing:0.06em;color:var(--muted);}
+.no-card-note .icon{color:var(--success);}
+
+/* ── Step 2: Trial started ─────────────────────────────── */
+.success-panel{width:100%;max-width:480px;padding-top:0.5rem;}
+.success-heading{font-family:var(--font-d);font-weight:800;font-size:clamp(2.2rem,6vw,3.2rem);letter-spacing:-0.04em;color:var(--ink);margin-bottom:0.75rem;line-height:1;text-align:center;}
+.success-sub{font-size:0.95rem;color:var(--muted);max-width:38ch;margin:0 auto 1.75rem;line-height:1.6;text-align:center;}
+.confetti-strip{display:flex;justify-content:center;gap:0.5rem;margin-bottom:1.25rem;font-size:1.5rem;}
+
+/* Episode meter card */
+.trial-meter{
+  background:var(--paper-2);
+  border:1px solid oklch(65% 0.17 145/0.22);
+  border-radius:var(--r-xl);
+  padding:1.75rem 1.5rem 1.5rem;
+  margin-bottom:1.25rem;
+  text-align:center;
+}
+.trial-meter-label{font-family:var(--font-o);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;}
+.episode-dots{display:flex;justify-content:center;gap:1rem;margin-bottom:1.375rem;}
+.ep-dot{
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+}
+.ep-circle{
+  width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-weight:800;font-size:1.1rem;
+  border:2px solid oklch(65% 0.17 145/0.45);
+  color:var(--success);
+  background:oklch(65% 0.17 145/0.1);
+}
+.ep-circle.locked{
+  border-color:oklch(68% 0.220 15/0.3);
+  color:var(--accent);
+  background:oklch(68% 0.220 15/0.08);
+}
+.ep-dot-label{font-family:var(--font-o);font-size:0.52rem;color:var(--muted);white-space:nowrap;letter-spacing:0.06em;}
+.ep-dot-label.free-label{color:var(--success);}
+.ep-dot-label.locked-label{color:var(--accent);}
+.trial-meter-msg{font-size:0.82rem;color:var(--muted);line-height:1.55;margin-top:0.25rem;}
+.trial-meter-msg strong{color:var(--ink);}
+.trial-meter-msg a{color:var(--accent);text-decoration:none;font-weight:600;}
+.trial-meter-msg a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <a href="00-landing.html" class="brand"><span class="dot" aria-hidden="true"></span>SeryeKo</a>
+    <a href="01-login.html" class="topbar-signin">Have an account? <span>Sign in</span></a>
+  </header>
+
+  <!-- 2-step rail -->
+  <div class="step-rail" aria-label="Registration steps">
+    <div class="step-item">
+      <div class="step-dot active" id="dot1" aria-current="step">1</div>
+      <span class="step-label active" id="lbl1">Create account</span>
+    </div>
+    <div class="step-connector" aria-hidden="true"></div>
+    <div class="step-item">
+      <div class="step-dot" id="dot2">2</div>
+      <span class="step-label" id="lbl2">Start watching</span>
+    </div>
+  </div>
+
+  <main class="main">
+
+    <!-- ── STEP 1: Account ── -->
+    <div class="step-panel visible" id="step1">
+      <div class="form-card">
+        <h2>Watch free.<br>No card needed.</h2>
+        <p class="sub">3 full episodes on us — no credit card, no commitment.<br>Already have an account? <a href="01-login.html">Sign in →</a></p>
+
+        <!-- Free trial perks -->
+        <div class="trial-callout" role="note" aria-label="Free trial details">
+          <div class="trial-callout-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="trial-callout-body">
+            <div class="trial-callout-heading">Your free trial includes:</div>
+            <ul class="trial-callout-list" role="list">
+              <li>3 full episodes from any drama</li>
+              <li>No credit card required at signup</li>
+              <li>Upgrade any time — one payment, lifetime access</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Google OAuth -->
+        <button type="button" class="btn-google" aria-label="Sign up with Google" onclick="goStep(2)">
+          <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          Continue with Google — it's free
+        </button>
+
+        <div class="divider"><span>or with email</span></div>
+
+        <form id="form1" novalidate>
+          <div class="field-row">
+            <div class="fg">
+              <label class="fl" for="fname">First name</label>
+              <input class="fi" type="text" id="fname" name="fname" placeholder="Maria" autocomplete="given-name" required>
+            </div>
+            <div class="fg">
+              <label class="fl" for="lname">Last name</label>
+              <input class="fi" type="text" id="lname" name="lname" placeholder="Santos" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl" for="reg-email">Email address</label>
+            <input class="fi" type="email" id="reg-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="fg">
+            <label class="fl" for="reg-password">Password</label>
+            <div class="input-wrap">
+              <input class="fi" type="password" id="reg-password" name="password" placeholder="Min. 8 characters" autocomplete="new-password" required minlength="8">
+              <button type="button" class="pw-toggle" aria-label="Show password"
+                onclick="const i=document.getElementById('reg-password');i.type=i.type==='password'?'text':'password'">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl" for="lang">Preferred language</label>
+            <select class="fi" id="lang" name="lang">
+              <option value="en">🇺🇸 English</option>
+              <option value="tl">🇵🇭 Tagalog</option>
+              <option value="id">🇮🇩 Bahasa Indonesia</option>
+            </select>
+          </div>
+
+          <!-- No card assurance -->
+          <div class="no-card-note" aria-live="polite">
+            <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            NO CREDIT CARD REQUIRED TO SIGN UP
+          </div>
+
+          <label class="terms-check">
+            <input type="checkbox" name="terms" required>
+            <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</span>
+          </label>
+
+          <button type="button" class="btn-primary" onclick="goStep(2)">
+            Start my free trial
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </form>
+      </div>
+    </div><!-- /step1 -->
+
+    <!-- ── STEP 2: You're in, trial started ── -->
+    <div class="step-panel" id="step2">
+      <div class="success-panel">
+        <div class="confetti-strip" aria-hidden="true">🎬 🍿 ▶️ ✨ 🎉</div>
+        <h2 class="success-heading">You're in!<br>3 episodes,<br>on us.</h2>
+        <p class="success-sub">No card, no charge — just Asian dramas. After your 3 free episodes, one lifetime payment unlocks everything.</p>
+
+        <!-- Episode counter -->
+        <div class="trial-meter" role="status" aria-label="Free trial: 3 episodes available, episode 4 locked">
+          <p class="trial-meter-label">Your free episodes</p>
+          <div class="episode-dots" aria-hidden="true">
+            <div class="ep-dot">
+              <div class="ep-circle">1</div>
+              <span class="ep-dot-label free-label">FREE</span>
+            </div>
+            <div class="ep-dot">
+              <div class="ep-circle">2</div>
+              <span class="ep-dot-label free-label">FREE</span>
+            </div>
+            <div class="ep-dot">
+              <div class="ep-circle">3</div>
+              <span class="ep-dot-label free-label">FREE</span>
+            </div>
+            <div class="ep-dot">
+              <div class="ep-circle locked" aria-label="Locked">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <span class="ep-dot-label locked-label">UNLOCK</span>
+            </div>
+          </div>
+          <p class="trial-meter-msg">
+            <strong>Episodes 1–3 are yours, free — right now.</strong><br>
+            Episode 4 onwards needs a lifetime pass.<br>
+            <a href="08-upgrade.html">See pricing →</a>
+          </p>
+        </div>
+
+        <a href="03-home.html" class="btn-primary" style="max-width:380px;margin:0 auto 0.875rem;display:flex;text-decoration:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Start watching now
+        </a>
+        <p style="text-align:center;font-size:0.78rem;color:var(--muted);">or <a href="08-upgrade.html" style="color:var(--accent);text-decoration:none;font-weight:600;">see lifetime pricing →</a></p>
+      </div>
+    </div><!-- /step2 -->
+
+  </main>
+</div>
+
+<script>
+function goStep(n){
+  [1,2].forEach(i=>{
+    document.getElementById('step'+i).classList.toggle('visible',i===n);
+    const dot=document.getElementById('dot'+i);
+    const lbl=document.getElementById('lbl'+i);
+    dot.classList.remove('active','done');
+    lbl.classList.remove('active');
+    if(i<n){dot.classList.add('done');dot.textContent='✓';}
+    else if(i===n){dot.classList.add('active');lbl.classList.add('active');dot.textContent=i;}
+    else{dot.textContent=i;}
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

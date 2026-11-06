@@ -1,0 +1,13 @@
+{
+  "name": "SeryeKo.com",
+  "short_name": "SeryeKo",
+  "description": "Short Dramas, Big Kilig — watch Asian dramas from 40+ providers in one app.",
+  "start_url": "/home",
+  "display": "standalone",
+  "background_color": "#121015",
+  "theme_color": "#ec4878",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

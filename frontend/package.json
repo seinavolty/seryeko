@@ -1,0 +1,35 @@
+{
+  "name": "seryeko-frontend",
+  "version": "1.0.0",
+  "description": "Mobile-first Asian drama streaming platform frontend web client",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "SeryeKo Contributors",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@tanstack/react-query": "^5.104.1",
+    "axios": "^1.20.0",
+    "hls.js": "^1.7.3",
+    "lucide-react": "^1.52.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^7.0.2",
+    "vite": "^5.4.14"
+  }
+}

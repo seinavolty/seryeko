@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<!--
+  Hallmark · macrostructure: Testimonial Wall + Pricing · tone: playful-cinema · anchor: coral-pink 15°
+  page: Upgrade — Lifetime Paywall (shown after 3 free episodes)
+  payment: PayMongo — GCash / Maya / Card (no payment at register; triggered here)
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unlock Lifetime Access — SeryeKo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Geist:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip;min-height:100dvh;background:oklch(10% 0.012 285);color:oklch(94% 0.006 285);font-family:"Geist",ui-sans-serif,system-ui,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased;}
+:root{
+  --paper:oklch(10% 0.012 285);--paper-2:oklch(14% 0.013 285);--paper-3:oklch(18% 0.014 285);
+  --rule:oklch(28% 0.010 285);--muted:oklch(48% 0.008 285);--neutral:oklch(62% 0.006 285);
+  --ink:oklch(94% 0.006 285);--accent:oklch(68% 0.220 15);--accent-2:oklch(75% 0.180 20);
+  --focus:oklch(72% 0.210 15);--error:oklch(60% 0.22 25);--success:oklch(65% 0.17 145);
+  --font-d:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --font-b:"Geist",ui-sans-serif,system-ui,sans-serif;
+  --font-o:"Space Mono",ui-monospace,monospace;
+  --r-sm:0.375rem;--r-md:0.75rem;--r-lg:1.25rem;--r-xl:1.75rem;--r-pill:100vmax;
+  --dur:200ms;--ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ── Sticky header ───────────────────────────────────────── */
+.topbar{position:sticky;top:0;z-index:100;padding:1rem clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;background:oklch(10% 0.015 285/0.9);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid oklch(22% 0.010 285/0.6);}
+.brand{font-family:var(--font-d);font-weight:800;font-size:1.15rem;letter-spacing:-0.02em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:0.4rem;}
+.brand .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;}
+.topbar-back{font-family:var(--font-d);font-size:0.82rem;font-weight:600;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:0.35rem;transition:color var(--dur) var(--ease);}
+.topbar-back:hover{color:var(--neutral);}
+.topbar-back:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px;}
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero{
+  padding:2.5rem clamp(1rem,5vw,2.5rem) 1.5rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+/* Radial glow behind hero */
+.hero::before{content:"";position:absolute;top:-60px;left:50%;translate:-50%;width:320px;height:320px;background:radial-gradient(circle,oklch(68% 0.220 15/0.18) 0%,transparent 70%);pointer-events:none;z-index:0;}
+.hero-inner{position:relative;z-index:1;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  padding:0.3rem 0.875rem;margin-bottom:1.25rem;
+  background:oklch(68% 0.220 15/0.1);border:1px solid oklch(68% 0.220 15/0.3);
+  border-radius:var(--r-pill);
+  font-family:var(--font-o);font-size:0.6rem;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;
+}
+.hero h1{
+  font-family:var(--font-d);font-weight:800;
+  font-size:clamp(2.2rem,7vw,3.8rem);
+  letter-spacing:-0.04em;line-height:1;
+  color:var(--ink);margin-bottom:1rem;
+}
+.hero h1 em{color:var(--accent);font-style:normal;}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:34ch;margin:0 auto 2rem;line-height:1.65;}
+
+/* ── Free trial used — episode counter ──────────────────── */
+.ep-used-strip{
+  display:flex;justify-content:center;align-items:center;gap:0;
+  margin-bottom:2rem;
+}
+.ep-used-pill{
+  display:flex;align-items:center;gap:0.625rem;
+  padding:0.625rem 1.25rem;
+  background:oklch(65% 0.17 145/0.07);
+  border:1px solid oklch(65% 0.17 145/0.22);
+  border-radius:var(--r-pill);
+}
+.ep-used-dots{display:flex;gap:0.375rem;}
+.ep-used-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:0.62rem;background:oklch(65% 0.17 145/0.15);border:1.5px solid oklch(65% 0.17 145/0.5);color:oklch(65% 0.17 145);}
+.ep-used-dot.locked{background:oklch(68% 0.220 15/0.08);border-color:oklch(68% 0.220 15/0.4);color:var(--accent);}
+.ep-used-label{font-family:var(--font-o);font-size:0.6rem;color:var(--muted);letter-spacing:0.06em;white-space:nowrap;}
+
+/* ── Pricing card ───────────────────────────────────────── */
+.pricing-wrap{padding:0 clamp(1rem,5vw,2.5rem) 0;max-width:480px;margin:0 auto;}
+.pricing-card{
+  background:var(--paper-2);
+  border:1px solid oklch(68% 0.220 15/0.35);
+  border-radius:var(--r-xl);
+  padding:1.75rem 1.5rem 1.5rem;
+  position:relative;overflow:hidden;
+  margin-bottom:1rem;
+}
+.pricing-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),oklch(75% 0.18 50));}
+.pricing-best-tag{
+  position:absolute;top:1.25rem;right:1.25rem;
+  font-family:var(--font-o);font-size:0.54rem;letter-spacing:0.1em;color:oklch(8% 0.010 285);
+  background:var(--accent);border-radius:var(--r-pill);padding:0.2rem 0.6rem;text-transform:uppercase;
+}
+.pricing-plan-name{font-family:var(--font-d);font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:0.25rem;}
+.pricing-plan-desc{font-size:0.8rem;color:var(--muted);margin-bottom:1.25rem;}
+
+/* Price display */
+.pricing-amount{display:flex;align-items:flex-end;gap:0.25rem;margin-bottom:0.375rem;}
+.price-currency{font-family:var(--font-d);font-weight:600;font-size:1.1rem;color:var(--muted);padding-bottom:0.5rem;}
+.price-value{font-family:var(--font-d);font-weight:800;font-size:clamp(3rem,8vw,4rem);color:var(--accent);letter-spacing:-0.05em;line-height:1;font-variant-numeric:tabular-nums;}
+.price-period{font-family:var(--font-d);font-weight:500;font-size:0.9rem;color:var(--muted);padding-bottom:0.6rem;}
+.pricing-note{font-family:var(--font-o);font-size:0.6rem;color:var(--muted);letter-spacing:0.08em;margin-bottom:1.5rem;}
+
+/* features */
+.pricing-features{display:flex;flex-direction:column;gap:0.625rem;margin-bottom:1.5rem;}
+.pf{display:flex;align-items:center;gap:0.625rem;font-size:0.88rem;color:var(--neutral);}
+.pf-check{width:20px;height:20px;border-radius:50%;background:oklch(65% 0.17 145/0.12);border:1.5px solid oklch(65% 0.17 145/0.4);display:flex;align-items:center;justify-content:center;color:var(--success);flex-shrink:0;}
+
+/* ── Payment method picker ──────────────────────────────── */
+.pm-section{margin-bottom:1.25rem;}
+.pm-section-label{font-family:var(--font-d);font-weight:600;font-size:0.78rem;letter-spacing:0.04em;color:var(--neutral);margin-bottom:0.625rem;}
+.pm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;}
+.pm-opt{position:relative;}
+.pm-opt input[type=radio]{position:absolute;opacity:0;width:0;height:0;}
+.pm-lbl{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.375rem;padding:0.875rem 0.5rem;background:var(--paper-3);border:1.5px solid var(--rule);border-radius:var(--r-md);cursor:pointer;font-family:var(--font-d);font-weight:600;font-size:0.72rem;color:var(--muted);text-align:center;transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease),color var(--dur) var(--ease);}
+.pm-lbl:hover{border-color:oklch(42% 0.012 285);color:var(--neutral);}
+.pm-opt input:checked + .pm-lbl{border-color:var(--accent);background:oklch(68% 0.220 15/0.1);color:var(--accent);}
+.pm-opt input:focus-visible + .pm-lbl{outline:2px solid var(--focus);outline-offset:2px;}
+.pm-icon{font-size:1.4rem;line-height:1;}
+
+/* GCash redirect note */
+.pm-redirect-note{
+  display:none;align-items:center;gap:0.5rem;
+  margin-top:0.625rem;padding:0.625rem 0.875rem;
+  background:oklch(14% 0.013 285);border:1px solid var(--rule);border-radius:var(--r-md);
+  font-size:0.76rem;color:var(--muted);
+}
+.pm-redirect-note.visible{display:flex;}
+.pm-redirect-note svg{flex-shrink:0;color:var(--accent);}
+
+/* Card fields */
+.card-fields{background:oklch(11% 0.012 285);border:1px solid var(--rule);border-radius:var(--r-md);padding:1.125rem;margin-bottom:1rem;display:none;}
+.card-fields.visible{display:block;}
+.card-fields .fg:last-child{margin-bottom:0;}
+.fg{display:flex;flex-direction:column;gap:0.375rem;margin-bottom:0.875rem;}
+.fl{font-family:var(--font-d);font-weight:600;font-size:0.75rem;color:var(--neutral);letter-spacing:0.04em;}
+.fi{width:100%;padding:0.75rem 0.875rem;background:oklch(10% 0.012 285);border:1.5px solid var(--rule);border-radius:var(--r-md);font-family:var(--font-b);font-size:0.95rem;color:var(--ink);outline:none;-webkit-appearance:none;appearance:none;transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease);}
+.fi::placeholder{color:oklch(36% 0.008 285);}
+.fi:focus{border-color:var(--accent);box-shadow:0 0 0 3px oklch(68% 0.220 15/0.15);}
+.field-row-2{display:grid;grid-template-columns:1fr 1fr;gap:0.625rem;}
+
+/* ── CTA button ─────────────────────────────────────────── */
+.pay-btn{display:flex;align-items:center;justify-content:center;gap:0.5rem;width:100%;padding:1rem 1.5rem;background:var(--accent);border:none;border-radius:var(--r-pill);font-family:var(--font-d);font-weight:700;font-size:1.08rem;color:oklch(8% 0.010 285);cursor:pointer;text-decoration:none;transition:background var(--dur) var(--ease),transform 100ms var(--ease);width:100%;margin-bottom:0.75rem;}
+.pay-btn:hover{background:var(--accent-2);transform:translateY(-1px);}
+.pay-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+.pay-btn:active{transform:translateY(0);}
+.security-strip{display:flex;align-items:center;justify-content:center;gap:0.5rem;font-family:var(--font-o);font-size:0.58rem;color:var(--muted);letter-spacing:0.06em;padding-bottom:0.25rem;}
+.security-strip svg{color:var(--success);}
+
+/* ── Testimonials ───────────────────────────────────────── */
+.section{padding:2rem clamp(1rem,5vw,2.5rem);}
+.section-label{font-family:var(--font-o);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;text-align:center;}
+.testimonials{display:flex;flex-direction:column;gap:0.75rem;max-width:480px;margin:0 auto;}
+.tcard{background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-xl);padding:1.25rem;}
+.tcard-text{font-size:0.92rem;color:var(--neutral);line-height:1.65;margin-bottom:0.875rem;font-style:italic;}
+.tcard-text::before{content:'\201C';color:var(--accent);font-size:1.1rem;font-style:normal;}
+.tcard-text::after{content:'\201D';color:var(--accent);font-size:1.1rem;font-style:normal;}
+.tcard-author{display:flex;align-items:center;gap:0.625rem;}
+.tcard-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:0.75rem;flex-shrink:0;}
+.av-1{background:linear-gradient(135deg,oklch(50% 0.18 15),oklch(35% 0.12 350));}
+.av-2{background:linear-gradient(135deg,oklch(48% 0.16 200),oklch(33% 0.10 220));}
+.av-3{background:linear-gradient(135deg,oklch(52% 0.18 280),oklch(36% 0.12 260));}
+.tcard-name{font-family:var(--font-d);font-weight:700;font-size:0.8rem;color:var(--ink);}
+.tcard-meta{font-size:0.7rem;color:var(--muted);}
+.tcard-stars{margin-left:auto;color:var(--accent);font-size:0.75rem;letter-spacing:0.05em;}
+
+/* ── FAQ mini ───────────────────────────────────────────── */
+.faq{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid oklch(18% 0.010 285/0.5);}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:0.75rem;width:100%;background:none;border:none;padding:1rem 0;cursor:pointer;text-align:left;color:var(--ink);font-family:var(--font-d);font-weight:600;font-size:0.9rem;}
+.faq-q:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px;}
+.faq-icon{flex-shrink:0;color:var(--muted);transition:transform var(--dur) var(--ease);}
+.faq-item.open .faq-icon{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 350ms var(--ease),padding 350ms var(--ease);}
+.faq-item.open .faq-a{max-height:300px;}
+.faq-a-inner{padding-bottom:1rem;font-size:0.86rem;color:var(--muted);line-height:1.65;}
+.faq-a-inner a{color:var(--accent);text-decoration:none;}
+
+/* ── Final bottom CTA strip ─────────────────────────────── */
+.bottom-cta{
+  position:sticky;bottom:0;
+  background:oklch(11% 0.013 285/0.94);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border-top:1px solid oklch(24% 0.010 285);
+  padding:0.875rem clamp(1rem,5vw,2.5rem) calc(0.875rem + env(safe-area-inset-bottom));
+  display:flex;align-items:center;gap:1rem;
+}
+.bottom-cta-info{flex:1;min-width:0;}
+.bottom-cta-label{font-family:var(--font-o);font-size:0.58rem;color:var(--muted);letter-spacing:0.08em;margin-bottom:0.125rem;}
+.bottom-cta-price{font-family:var(--font-d);font-weight:800;font-size:1.1rem;color:var(--ink);}
+.bottom-cta-price span{color:var(--accent);}
+.bottom-cta-btn{flex-shrink:0;padding:0.75rem 1.5rem;background:var(--accent);border:none;border-radius:var(--r-pill);font-family:var(--font-d);font-weight:700;font-size:0.95rem;color:oklch(8% 0.010 285);cursor:pointer;text-decoration:none;white-space:nowrap;transition:background var(--dur) var(--ease),transform 100ms var(--ease);}
+.bottom-cta-btn:hover{background:var(--accent-2);transform:translateY(-1px);}
+.bottom-cta-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="topbar">
+  <a href="03-home.html" class="brand"><span class="dot" aria-hidden="true"></span>SeryeKo</a>
+  <a href="javascript:history.back()" class="topbar-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    Back
+  </a>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="upgrade-heading">
+    <div class="hero-inner">
+      <div class="hero-badge" aria-hidden="true">🎬 You finished your free trial</div>
+      <h1 id="upgrade-heading">You loved 3 episodes.<br><em>Unlock the rest.</em></h1>
+      <p class="hero-sub">One payment. Every drama. 40+ providers. Watch forever — no renewals, no monthly bills.</p>
+
+      <!-- Free episodes used counter -->
+      <div class="ep-used-strip" role="status" aria-label="All 3 free episodes used, episode 4 locked">
+        <div class="ep-used-pill">
+          <div class="ep-used-dots" aria-hidden="true">
+            <div class="ep-used-dot">1</div>
+            <div class="ep-used-dot">2</div>
+            <div class="ep-used-dot">3</div>
+            <div class="ep-used-dot locked">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+          </div>
+          <span class="ep-used-label">3/3 FREE EPISODES USED</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing card + payment -->
+  <div class="pricing-wrap" id="checkout">
+    <div class="pricing-card">
+      <div class="pricing-best-tag" aria-label="Best value">Best Value</div>
+
+      <div class="pricing-plan-name">Lifetime Access</div>
+      <div class="pricing-plan-desc">One-time payment · All devices · No renewals ever</div>
+
+      <!-- Price fetched from admin panel; shown via JS from API -->
+      <div class="pricing-amount" aria-label="Price: 999 Philippine Pesos, one-time">
+        <span class="price-currency">₱</span>
+        <span class="price-value" id="price-display">999</span>
+        <span class="price-period">/ lifetime</span>
+      </div>
+      <div class="pricing-note">≈ USD 17 · Price set by admin · 7-day refund guarantee</div>
+
+      <!-- Features -->
+      <div class="pricing-features" role="list" aria-label="What's included">
+        <div class="pf" role="listitem">
+          <div class="pf-check" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          All dramas from 40+ providers
+        </div>
+        <div class="pf" role="listitem">
+          <div class="pf-check" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          HD streaming · subtitles in EN / TL / ID
+        </div>
+        <div class="pf" role="listitem">
+          <div class="pf-check" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Watch on 3 devices simultaneously
+        </div>
+        <div class="pf" role="listitem">
+          <div class="pf-check" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          New dramas added weekly — included forever
+        </div>
+        <div class="pf" role="listitem">
+          <div class="pf-check" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          7-day money-back guarantee
+        </div>
+      </div>
+
+      <!-- Payment method picker -->
+      <div class="pm-section">
+        <p class="pm-section-label">PAYMENT METHOD</p>
+        <div class="pm-grid" role="radiogroup" aria-label="Choose payment method">
+          <div class="pm-opt">
+            <input type="radio" name="pay" id="pm-gcash" value="gcash" checked onchange="onPayChange(this)">
+            <label class="pm-lbl" for="pm-gcash"><span class="pm-icon" aria-hidden="true">💚</span>GCash</label>
+          </div>
+          <div class="pm-opt">
+            <input type="radio" name="pay" id="pm-maya" value="maya" onchange="onPayChange(this)">
+            <label class="pm-lbl" for="pm-maya"><span class="pm-icon" aria-hidden="true">💜</span>Maya</label>
+          </div>
+          <div class="pm-opt">
+            <input type="radio" name="pay" id="pm-card" value="card" onchange="onPayChange(this)">
+            <label class="pm-lbl" for="pm-card"><span class="pm-icon" aria-hidden="true">💳</span>Card</label>
+          </div>
+        </div>
+
+        <!-- Redirect notice (GCash / Maya) -->
+        <div class="pm-redirect-note visible" id="redirect-note" role="status" aria-live="polite">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14.5 14.5"/></svg>
+          You'll be redirected to GCash to complete payment securely.
+        </div>
+
+        <!-- Card fields -->
+        <div class="card-fields" id="card-fields" aria-live="polite">
+          <div class="fg">
+            <label class="fl" for="cn">Card number</label>
+            <input class="fi" type="text" id="cn" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" autocomplete="cc-number">
+          </div>
+          <div class="field-row-2">
+            <div class="fg">
+              <label class="fl" for="cexp">Expiry</label>
+              <input class="fi" type="text" id="cexp" placeholder="MM / YY" maxlength="7" inputmode="numeric" autocomplete="cc-exp">
+            </div>
+            <div class="fg">
+              <label class="fl" for="ccvc">CVC</label>
+              <input class="fi" type="password" id="ccvc" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc">
+            </div>
+          </div>
+          <div class="fg" style="margin-bottom:0;">
+            <label class="fl" for="cname">Name on card</label>
+            <input class="fi" type="text" id="cname" placeholder="MARIA SANTOS" autocomplete="cc-name">
+          </div>
+        </div>
+      </div>
+
+      <!-- Pay button -->
+      <button type="button" class="pay-btn" id="pay-btn" aria-label="Pay ₱999 for lifetime access via GCash" onclick="startPayment()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Pay ₱<span id="btn-price">999</span> — Get lifetime access
+      </button>
+      <div class="security-strip" aria-label="Secure payment">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        SECURED · PAYMONGO · SSL · 7-DAY REFUND
+      </div>
+    </div><!-- /pricing-card -->
+  </div><!-- /pricing-wrap -->
+
+  <!-- Testimonials -->
+  <section class="section" aria-labelledby="testimonials-heading">
+    <p class="section-label" id="testimonials-heading">What subscribers say</p>
+    <div class="testimonials" role="list">
+      <div class="tcard" role="listitem">
+        <p class="tcard-text">Nagbayad na ako ng isang beses, nanuod na ako nang walang tigil. Worth every peso!</p>
+        <div class="tcard-author">
+          <div class="tcard-avatar av-1" aria-hidden="true">J</div>
+          <div>
+            <div class="tcard-name">Josefina R.</div>
+            <div class="tcard-meta">Quezon City · Lifetime member</div>
+          </div>
+          <div class="tcard-stars" aria-label="5 stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="tcard" role="listitem">
+        <p class="tcard-text">Bayar sekali, nonton seumur hidup. Udah ribuan episode, gak pernah nyesel.</p>
+        <div class="tcard-author">
+          <div class="tcard-avatar av-2" aria-hidden="true">D</div>
+          <div>
+            <div class="tcard-name">Dewi S.</div>
+            <div class="tcard-meta">Jakarta · Lifetime member</div>
+          </div>
+          <div class="tcard-stars" aria-label="5 stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="tcard" role="listitem">
+        <p class="tcard-text">I've finished 12 dramas since I subscribed. The unlimited scroll player is so fun — I can't stop.</p>
+        <div class="tcard-author">
+          <div class="tcard-avatar av-3" aria-hidden="true">M</div>
+          <div>
+            <div class="tcard-name">Maria L.</div>
+            <div class="tcard-meta">Makati · Lifetime member</div>
+          </div>
+          <div class="tcard-stars" aria-label="5 stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-heading" style="padding-top:0;padding-bottom:5rem;">
+    <p class="section-label" id="faq-heading">Common questions</p>
+    <div class="faq" role="list">
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Is this really one payment forever?
+          <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — 100%. Pay once, watch forever. No renewals, no monthly charges, no hidden fees. If we ever close (we won't), you get a refund.</div></div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          What if I don't like it after paying?
+          <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">7-day full refund, no questions asked. Request it from your profile → Help & Support → Request Refund.</div></div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Can I use GCash without a bank account?
+          <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. GCash works with just your GCash mobile wallet — no bank account needed. Same for Maya.</div></div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          How many devices can I use?
+          <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Up to 3 devices simultaneously per account. Any combination of mobile, tablet, or desktop.</div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sticky bottom CTA (always visible on scroll) -->
+<div class="bottom-cta" role="complementary" aria-label="Quick pay action">
+  <div class="bottom-cta-info">
+    <div class="bottom-cta-label">LIFETIME ACCESS</div>
+    <div class="bottom-cta-price"><span>₱<span id="sticky-price">999</span></span> one time</div>
+  </div>
+  <a href="#checkout" class="bottom-cta-btn" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'});return false;">
+    Get lifetime →
+  </a>
+</div>
+
+<script>
+// ── Payment method toggle ──────────────────────────────
+function onPayChange(radio){
+  const isCard = radio.value === 'card';
+  const isRedirect = radio.value === 'gcash' || radio.value === 'maya';
+  document.getElementById('card-fields').classList.toggle('visible', isCard);
+  const rNote = document.getElementById('redirect-note');
+  rNote.classList.toggle('visible', isRedirect);
+  if(isRedirect){
+    const name = radio.value==='gcash'?'GCash':'Maya';
+    rNote.innerHTML=`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14.5 14.5"/></svg> You'll be redirected to ${name} to complete payment securely.`;
+  }
+  // Update pay button label
+  const payBtn = document.getElementById('pay-btn');
+  const method = isCard ? 'card' : radio.value.charAt(0).toUpperCase()+radio.value.slice(1);
+  payBtn.setAttribute('aria-label', `Pay ₱${document.getElementById('price-display').textContent} via ${method}`);
+}
+
+// ── FAQ accordion ──────────────────────────────────────
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen.toString());
+}
+
+// ── Payment flow (demo: just redirects) ───────────────
+function startPayment(){
+  const method = document.querySelector('input[name="pay"]:checked').value;
+  // In real app: POST /api/payments/create --> PayMongo PaymentIntent --> redirect
+  alert(`[DEMO] Initiating PayMongo ${method.toUpperCase()} checkout...\n\nIn production this opens the PayMongo payment page.`);
+}
+
+// ── Price from API (demo fallback) ────────────────────
+// In production: fetch('/api/settings/pricing').then(r=>r.json()).then(d=>{
+//   const p = d.lifetime_price_php;
+//   document.getElementById('price-display').textContent = p;
+//   document.getElementById('btn-price').textContent = p;
+//   document.getElementById('sticky-price').textContent = p;
+// });
+</script>
+</body>
+</html>

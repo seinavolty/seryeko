@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Paper surfaces (dark cinema) */
+  --paper: oklch(10% 0.012 285);
+  --paper-2: oklch(14% 0.013 285);
+  --paper-3: oklch(18% 0.014 285);
+  --paper-4: oklch(22% 0.012 285);
+  --rule: oklch(28% 0.010 285);
+  --muted: oklch(48% 0.008 285);
+  --neutral: oklch(62% 0.006 285);
+  --ink: oklch(94% 0.006 285);
+
+  /* Accent — coral-pink */
+  --accent: oklch(68% 0.220 15);
+  --accent-2: oklch(75% 0.180 20);
+  --accent-dim: oklch(68% 0.100 15);
+  --focus: oklch(72% 0.210 15);
+
+  /* Genre badge colors */
+  --tag-romance: oklch(65% 0.18 350);
+  --tag-action: oklch(65% 0.20 30);
+  --tag-comedy: oklch(68% 0.18 85);
+  --tag-thriller: oklch(58% 0.16 260);
+  --tag-fantasy: oklch(60% 0.18 300);
+
+  /* Semantic */
+  --success: oklch(65% 0.17 145);
+  --error: oklch(60% 0.22 25);
+  --overlay: oklch(6% 0.008 285 / 0.88);
+
+  /* Bottom nav height */
+  --nav-bottom-h: 4rem;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  min-height: 100dvh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+.font-mono-code {
+  font-family: 'Space Mono', monospace;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-snap-y {
+  scroll-snap-type: y mandatory;
+}
+.snap-start {
+  scroll-snap-align: start;
+}
+.snap-stop-always {
+  scroll-snap-stop: always;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 200ms ease-out;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-up {
+  animation: slide-up 250ms cubic-bezier(0.16,1,0.3,1);
+}

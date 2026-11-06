@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<!--
+  Hallmark · macrostructure: Conversational FAQ (search-as-conversation) · tone: playful-cinema
+  page: Search — instant search with genre suggestions + results grid
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Search — SeryeKo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Geist:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:clip;background:oklch(10% 0.012 285);}
+body{overflow-x:clip;min-height:100dvh;color:oklch(94% 0.006 285);font-family:"Geist",ui-sans-serif,system-ui,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased;padding-bottom:calc(4rem + env(safe-area-inset-bottom));}
+:root{
+  --paper:oklch(10% 0.012 285);--paper-2:oklch(14% 0.013 285);--paper-3:oklch(18% 0.014 285);
+  --rule:oklch(28% 0.010 285);--muted:oklch(48% 0.008 285);--neutral:oklch(62% 0.006 285);
+  --ink:oklch(94% 0.006 285);--accent:oklch(68% 0.220 15);--accent-2:oklch(75% 0.180 20);
+  --focus:oklch(72% 0.210 15);
+  --font-d:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --font-b:"Geist",ui-sans-serif,system-ui,sans-serif;
+  --font-o:"Space Mono",ui-monospace,monospace;
+  --r-sm:0.375rem;--r-md:0.75rem;--r-lg:1.25rem;--r-xl:1.75rem;--r-pill:100vmax;
+  --dur:200ms;--ease:cubic-bezier(0.16,1,0.3,1);--nav-h:4rem;
+}
+
+/* ── Search header ─────────────────────────────────────────── */
+.search-header{
+  position:sticky;top:0;z-index:100;
+  background:oklch(10% 0.013 285/0.95);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  padding:max(0.875rem,env(safe-area-inset-top)) clamp(1rem,4vw,2rem) 0.875rem;
+  border-bottom:1px solid oklch(20% 0.010 285/0.5);
+}
+.search-row{
+  display:flex;align-items:center;gap:0.75rem;
+}
+.search-back{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--paper-2);border:1px solid var(--rule);
+  color:var(--neutral);cursor:pointer;text-decoration:none;flex-shrink:0;
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.search-back:hover{background:var(--paper-3);color:var(--ink);}
+.search-back:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+
+.search-input-wrap{
+  flex:1;position:relative;
+}
+.search-icon{
+  position:absolute;left:0.875rem;top:50%;translate:0 -50%;
+  color:var(--muted);pointer-events:none;flex-shrink:0;
+}
+.search-input{
+  width:100%;
+  padding:0.75rem 2.75rem 0.75rem 2.5rem;
+  background:var(--paper-2);
+  border:1.5px solid var(--rule);border-radius:var(--r-pill);
+  font-family:var(--font-b);font-size:1rem;color:var(--ink);
+  outline:none;-webkit-appearance:none;appearance:none;
+  transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
+}
+.search-input::placeholder{color:oklch(38% 0.008 285);}
+.search-input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px oklch(68% 0.220 15/0.15);
+}
+.search-clear{
+  position:absolute;right:0.75rem;top:50%;translate:0 -50%;
+  width:22px;height:22px;border-radius:50%;
+  background:oklch(30% 0.010 285);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);
+  opacity:0;pointer-events:none;
+  transition:opacity var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.search-clear.visible{opacity:1;pointer-events:auto;}
+.search-clear:hover{color:var(--ink);}
+.search-clear:focus-visible{outline:2px solid var(--focus);}
+
+/* ── State: empty (explore) vs results ─────────────────────── */
+.explore-state,.results-state{display:none;}
+.explore-state.visible,.results-state.visible{display:block;}
+
+/* ── Explore state ─────────────────────────────────────────── */
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem clamp(1rem,4vw,2rem) 0.875rem;
+}
+.section-head h2{font-family:var(--font-d);font-weight:800;font-size:1.15rem;letter-spacing:-0.02em;color:var(--ink);}
+
+/* Recent searches */
+.recent-list{padding:0 clamp(1rem,4vw,2rem);}
+.recent-item{
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0.625rem 0;
+  border-bottom:1px solid oklch(18% 0.010 285/0.5);
+  cursor:pointer;
+  transition:color var(--dur) var(--ease);
+}
+.recent-item:last-child{border-bottom:none;}
+.recent-icon{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--paper-2);display:flex;align-items:center;justify-content:center;
+  color:var(--muted);flex-shrink:0;
+}
+.recent-text{flex:1;font-size:0.88rem;color:var(--neutral);}
+.recent-item:hover .recent-text{color:var(--ink);}
+.recent-del{background:none;border:none;color:var(--muted);cursor:pointer;padding:0.25rem;display:flex;align-items:center;}
+.recent-del:hover{color:var(--neutral);}
+.recent-del:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px;}
+
+/* Trending grid */
+.trending-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:0.625rem;
+  padding:0 clamp(1rem,4vw,2rem) 1rem;
+}
+@media(min-width:40rem){.trending-grid{grid-template-columns:repeat(3,1fr);}}
+
+.trend-card{
+  border-radius:var(--r-lg);overflow:hidden;position:relative;
+  aspect-ratio:3/2;cursor:pointer;text-decoration:none;
+}
+.tc-bg{width:100%;height:100%;display:block;}
+.tc-overlay{position:absolute;inset:0;background:linear-gradient(to top,oklch(6% 0.008 285/0.8) 0%,transparent 55%);}
+.tc-content{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0.75rem;z-index:1;
+}
+.tc-title{font-family:var(--font-d);font-weight:700;font-size:0.82rem;color:var(--ink);line-height:1.2;}
+.tc-count{font-family:var(--font-o);font-size:0.58rem;color:var(--muted);letter-spacing:0.05em;margin-top:0.2rem;}
+
+.gc-1{background:linear-gradient(155deg,oklch(38% 0.17 320),oklch(18% 0.09 300));}
+.gc-2{background:linear-gradient(155deg,oklch(42% 0.19 15),oklch(20% 0.10 350));}
+.gc-3{background:linear-gradient(155deg,oklch(36% 0.15 200),oklch(16% 0.08 220));}
+.gc-4{background:linear-gradient(155deg,oklch(40% 0.17 50),oklch(20% 0.09 30));}
+.gc-5{background:linear-gradient(155deg,oklch(35% 0.14 265),oklch(15% 0.08 250));}
+.gc-6{background:linear-gradient(155deg,oklch(43% 0.18 140),oklch(23% 0.10 160));}
+
+/* Genre explore pills */
+.genre-explore{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:0.625rem;
+  padding:0 clamp(1rem,4vw,2rem) 1.5rem;
+}
+@media(min-width:40rem){.genre-explore{grid-template-columns:repeat(3,1fr);}}
+.ge-pill{
+  display:flex;align-items:center;gap:0.625rem;
+  padding:0.875rem 1rem;border-radius:var(--r-lg);
+  background:var(--paper-2);border:1px solid var(--rule);
+  font-family:var(--font-d);font-weight:700;font-size:0.82rem;color:var(--ink);
+  cursor:pointer;text-decoration:none;
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),transform 100ms var(--ease);
+}
+.ge-pill:hover{background:var(--paper-3);border-color:oklch(42% 0.012 285);transform:translateY(-1px);}
+.ge-pill:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.ge-emoji{font-size:1.25rem;}
+
+/* ── Results state ─────────────────────────────────────────── */
+.results-header{
+  padding:0.875rem clamp(1rem,4vw,2rem) 0.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.results-count{font-family:var(--font-o);font-size:0.64rem;color:var(--muted);letter-spacing:0.08em;}
+.results-sort{
+  display:flex;align-items:center;gap:0.375rem;
+  font-size:0.75rem;color:var(--neutral);
+  background:none;border:none;cursor:pointer;
+  font-family:var(--font-d);font-weight:600;
+  transition:color var(--dur) var(--ease);
+}
+.results-sort:hover{color:var(--ink);}
+.results-sort:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px;}
+
+/* Results drama grid (reuse pattern from movie-list) */
+.results-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0.75rem;padding:0.5rem clamp(1rem,4vw,2rem);
+}
+@media(min-width:40rem){.results-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(min-width:60rem){.results-grid{grid-template-columns:repeat(4,minmax(0,1fr));}}
+
+.dr-card{display:flex;flex-direction:column;text-decoration:none;cursor:pointer;}
+.dr-img{width:100%;aspect-ratio:2/3;border-radius:var(--r-md);overflow:hidden;position:relative;margin-bottom:0.5rem;background:var(--paper-2);}
+.dr-img-inner{width:100%;height:100%;transition:transform 350ms var(--ease);}
+@media(hover:hover) and (pointer:fine){.dr-card:hover .dr-img-inner{transform:scale(1.04);}}
+.dr-overlay{position:absolute;inset:0;background:linear-gradient(to top,oklch(6% 0.01 285/0.8) 0%,transparent 55%);}
+.dr-badge{position:absolute;top:0.5rem;left:0.5rem;font-family:var(--font-o);font-size:0.5rem;letter-spacing:0.08em;text-transform:uppercase;color:oklch(8% 0.010 285);border-radius:var(--r-pill);padding:0.15rem 0.4rem;font-weight:700;}
+.badge-h{background:var(--accent);}
+.badge-n{background:oklch(65% 0.17 145);}
+.dr-provider{position:absolute;bottom:0.5rem;left:0.5rem;font-family:var(--font-o);font-size:0.5rem;color:oklch(90% 0.005 285);background:oklch(10% 0.012 285/0.72);border-radius:var(--r-pill);padding:0.1rem 0.375rem;backdrop-filter:blur(4px);}
+.dr-ep{position:absolute;bottom:0.5rem;right:0.5rem;font-family:var(--font-o);font-size:0.52rem;color:oklch(90% 0.005 285);}
+.dr-title{font-family:var(--font-d);font-weight:700;font-size:0.82rem;color:var(--ink);line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:0.2rem;}
+.dr-meta{font-size:0.68rem;color:var(--muted);}
+
+/* Autocomplete dropdown */
+.autocomplete{
+  position:absolute;left:0;right:0;top:calc(100% + 4px);
+  background:oklch(16% 0.014 285);
+  border:1px solid oklch(30% 0.010 285);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  z-index:200;
+  display:none;
+  box-shadow:0 16px 40px oklch(0% 0 0/0.5);
+}
+.autocomplete.visible{display:block;}
+.ac-item{
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0.75rem 1rem;
+  cursor:pointer;
+  transition:background var(--dur) var(--ease);
+}
+.ac-item:hover,.ac-item:focus-visible{background:oklch(20% 0.013 285);}
+.ac-item:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;}
+.ac-icon{color:var(--muted);flex-shrink:0;}
+.ac-text{flex:1;}
+.ac-title{font-size:0.88rem;color:var(--ink);}
+.ac-title mark{background:none;color:var(--accent);font-weight:700;}
+.ac-meta{font-size:0.7rem;color:var(--muted);}
+
+/* ── Bottom nav ────────────────────────────────────────────── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:oklch(12% 0.014 285/0.92);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-top:1px solid oklch(24% 0.010 285);display:flex;align-items:center;z-index:200;}
+.bottom-nav-inner{display:flex;align-items:center;justify-content:space-around;width:100%;padding:0 0.5rem;}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:0.25rem;padding:0.5rem 0.75rem;border-radius:var(--r-lg);background:none;border:none;cursor:pointer;text-decoration:none;color:var(--muted);transition:color var(--dur) var(--ease),background var(--dur) var(--ease);min-width:48px;-webkit-tap-highlight-color:transparent;}
+.nav-btn:hover,.nav-btn.active{color:var(--accent);}
+.nav-btn.active{background:oklch(68% 0.220 15/0.08);}
+.nav-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.nav-btn span{font-family:var(--font-d);font-size:0.6rem;font-weight:600;letter-spacing:0.02em;white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<!-- Search header -->
+<header class="search-header">
+  <div class="search-row">
+    <a href="03-home.html" class="search-back" aria-label="Back to home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <div class="search-input-wrap" style="position:relative;">
+      <div class="search-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <input
+        class="search-input"
+        type="search"
+        id="search-input"
+        placeholder="Search dramas, actors, genres…"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
+        aria-label="Search dramas"
+        aria-autocomplete="list"
+        aria-controls="autocomplete-list"
+        aria-expanded="false"
+      >
+      <button class="search-clear" id="search-clear" aria-label="Clear search" onclick="clearSearch()">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <!-- Autocomplete -->
+      <div class="autocomplete" id="autocomplete-list" role="listbox" aria-label="Search suggestions">
+        <div class="ac-item" role="option" tabindex="0" onclick="selectSuggestion('Crash Landing')" onkeydown="if(event.key==='Enter')selectSuggestion('Crash Landing')">
+          <div class="ac-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="ac-text"><div class="ac-title"><mark>Crash</mark> Landing on You</div><div class="ac-meta">Korean Drama · 16 eps</div></div>
+        </div>
+        <div class="ac-item" role="option" tabindex="0" onclick="selectSuggestion('Crash')" onkeydown="if(event.key==='Enter')selectSuggestion('Crash')">
+          <div class="ac-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="ac-text"><div class="ac-title"><mark>Crash</mark> Course in Romance</div><div class="ac-meta">Korean Drama · 16 eps</div></div>
+        </div>
+        <div class="ac-item" role="option" tabindex="0" onclick="selectSuggestion('Crash')" onkeydown="if(event.key==='Enter')selectSuggestion('Crash')">
+          <div class="ac-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="ac-text"><div class="ac-title"><mark>Crash</mark> · Thai Drama</div><div class="ac-meta">Thai Series · 12 eps</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- EXPLORE STATE (default) -->
+  <div class="explore-state visible" id="explore-state">
+
+    <!-- Recent searches -->
+    <div class="section-head">
+      <h2>Recent</h2>
+      <button style="background:none;border:none;font-size:0.78rem;color:var(--accent);cursor:pointer;font-family:var(--font-d);font-weight:600;" onclick="document.querySelector('.recent-list').innerHTML='<p style=\'padding:0.5rem 0;font-size:0.85rem;color:var(--muted);\'>No recent searches.</p>'">Clear all</button>
+    </div>
+    <div class="recent-list" role="list" aria-label="Recent searches">
+      <div class="recent-item" role="listitem" onclick="selectSuggestion('Vincenzo')">
+        <div class="recent-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="12 8 12 12 14 14"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <span class="recent-text">Vincenzo</span>
+        <button class="recent-del" aria-label="Remove Vincenzo from recent searches"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="recent-item" role="listitem" onclick="selectSuggestion('Flower of Evil')">
+        <div class="recent-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="12 8 12 12 14 14"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <span class="recent-text">Flower of Evil</span>
+        <button class="recent-del" aria-label="Remove from recent"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="recent-item" role="listitem" onclick="selectSuggestion('Korean romance 2024')">
+        <div class="recent-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="12 8 12 12 14 14"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <span class="recent-text">Korean romance 2024</span>
+        <button class="recent-del" aria-label="Remove from recent"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+    </div>
+
+    <!-- Trending searches -->
+    <div class="section-head" style="margin-top:0.5rem;">
+      <h2>Trending now</h2>
+    </div>
+    <div class="trending-grid" role="list" aria-label="Trending dramas">
+      <a href="04-drama-detail.html" class="trend-card" role="listitem" aria-label="Romance — Trending">
+        <div class="gc-1 tc-bg"></div><div class="tc-overlay"></div>
+        <div class="tc-content"><div class="tc-title">❤️ Romance</div><div class="tc-count">4,320 dramas</div></div>
+      </a>
+      <a href="03-movie-list.html" class="trend-card" role="listitem" aria-label="Korean dramas">
+        <div class="gc-2 tc-bg"></div><div class="tc-overlay"></div>
+        <div class="tc-content"><div class="tc-title">🇰🇷 Korean</div><div class="tc-count">2,180 dramas</div></div>
+      </a>
+      <a href="03-movie-list.html" class="trend-card" role="listitem" aria-label="Action dramas">
+        <div class="gc-5 tc-bg"></div><div class="tc-overlay"></div>
+        <div class="tc-content"><div class="tc-title">⚡ Action</div><div class="tc-count">1,940 dramas</div></div>
+      </a>
+      <a href="03-movie-list.html" class="trend-card" role="listitem" aria-label="Chinese dramas">
+        <div class="gc-3 tc-bg"></div><div class="tc-overlay"></div>
+        <div class="tc-content"><div class="tc-title">🇨🇳 Chinese</div><div class="tc-count">1,720 dramas</div></div>
+      </a>
+      <a href="03-movie-list.html" class="trend-card" role="listitem" aria-label="Fantasy dramas">
+        <div class="gc-4 tc-bg"></div><div class="tc-overlay"></div>
+        <div class="tc-content"><div class="tc-title">🔮 Fantasy</div><div class="tc-count">980 dramas</div></div>
+      </a>
+      <a href="03-movie-list.html" class="trend-card" role="listitem" aria-label="Thai dramas">
+        <div class="gc-6 tc-bg"></div><div class="tc-overlay"></div>
+        <div class="tc-content"><div class="tc-title">🇹🇭 Thai</div><div class="tc-count">760 dramas</div></div>
+      </a>
+    </div>
+
+    <!-- Browse by genre pills -->
+    <div class="section-head">
+      <h2>Browse genres</h2>
+    </div>
+    <div class="genre-explore" role="list" aria-label="Browse by genre">
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">❤️</span> Romance</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">⚡</span> Action</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">😂</span> Comedy</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">🔮</span> Fantasy</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">🔪</span> Thriller</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">👑</span> Historical</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">🏫</span> School</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">🕵️</span> Mystery</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">👨👩👧</span> Family</a>
+      <a href="03-movie-list.html" class="ge-pill" role="listitem"><span class="ge-emoji">💼</span> Office</a>
+    </div>
+
+  </div><!-- end explore-state -->
+
+  <!-- RESULTS STATE -->
+  <div class="results-state" id="results-state">
+    <div class="results-header">
+      <span class="results-count" id="results-count">12 RESULTS FOR "CRASH LANDING"</span>
+      <button class="results-sort" aria-label="Sort results">
+        Sort <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="results-grid" role="list" id="results-grid" aria-label="Search results">
+      <a href="04-drama-detail.html" class="dr-card" role="listitem" aria-label="Crash Landing on You">
+        <div class="dr-img"><div class="gc-1 dr-img-inner"></div><div class="dr-overlay"></div><div class="dr-badge badge-h">🔥 Hot</div><div class="dr-provider">DramaBox</div><div class="dr-ep">16 eps</div></div>
+        <div class="dr-title">Crash Landing on You</div><div class="dr-meta">🇰🇷 Romance · ⭐ 9.1</div>
+      </a>
+      <a href="04-drama-detail.html" class="dr-card" role="listitem" aria-label="Crash Course in Romance">
+        <div class="dr-img"><div class="gc-3 dr-img-inner"></div><div class="dr-overlay"></div><div class="dr-badge badge-n">NEW</div><div class="dr-provider">ShortMax</div><div class="dr-ep">16 eps</div></div>
+        <div class="dr-title">Crash Course in Romance</div><div class="dr-meta">🇰🇷 Drama · ⭐ 8.5</div>
+      </a>
+      <a href="04-drama-detail.html" class="dr-card" role="listitem" aria-label="Crash Thai Drama">
+        <div class="dr-img"><div class="gc-4 dr-img-inner"></div><div class="dr-overlay"></div><div class="dr-provider">FlickReels</div><div class="dr-ep">12 eps</div></div>
+        <div class="dr-title">Crash</div><div class="dr-meta">🇹🇭 Thriller · ⭐ 7.8</div>
+      </a>
+      <a href="04-drama-detail.html" class="dr-card" role="listitem" aria-label="Crash and Burn">
+        <div class="dr-img"><div class="gc-5 dr-img-inner"></div><div class="dr-overlay"></div><div class="dr-provider">DramaWave</div><div class="dr-ep">8 eps</div></div>
+        <div class="dr-title">Crash and Burn</div><div class="dr-meta">🇰🇷 Romance · ⭐ 8.0</div>
+      </a>
+    </div>
+  </div><!-- end results-state -->
+
+</main>
+
+<!-- Bottom nav -->
+<nav class="bottom-nav" aria-label="Main navigation">
+  <div class="bottom-nav-inner">
+    <a href="03-home.html" class="nav-btn" aria-label="Home"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Home</span></a>
+    <a href="03-movie-list.html" class="nav-btn" aria-label="Browse"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 2l-4 5-4-5"/></svg><span>Browse</span></a>
+    <a href="06-search.html" class="nav-btn active" aria-label="Search" aria-current="page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search</span></a>
+    <a href="07-profile.html" class="nav-btn" aria-label="Watchlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span>Watchlist</span></a>
+    <a href="07-profile.html" class="nav-btn" aria-label="Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></a>
+  </div>
+</nav>
+
+<script>
+const inp=document.getElementById('search-input');
+const clearBtn=document.getElementById('search-clear');
+const ac=document.getElementById('autocomplete-list');
+const explore=document.getElementById('explore-state');
+const results=document.getElementById('results-state');
+
+inp.addEventListener('input',()=>{
+  const v=inp.value.trim();
+  clearBtn.classList.toggle('visible',v.length>0);
+  ac.classList.toggle('visible',v.length>1);
+  inp.setAttribute('aria-expanded',v.length>1?'true':'false');
+  if(v.length===0){showExplore();}
+});
+inp.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&inp.value.trim()){
+    ac.classList.remove('visible');
+    inp.setAttribute('aria-expanded','false');
+    showResults(inp.value.trim());
+  }
+  if(e.key==='Escape'){clearSearch();}
+});
+inp.addEventListener('focus',()=>{
+  if(inp.value.trim().length>1)ac.classList.add('visible');
+});
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.search-input-wrap'))ac.classList.remove('visible');
+});
+
+function clearSearch(){
+  inp.value='';clearBtn.classList.remove('visible');
+  ac.classList.remove('visible');inp.setAttribute('aria-expanded','false');
+  showExplore();inp.focus();
+}
+function selectSuggestion(text){
+  inp.value=text;clearBtn.classList.add('visible');
+  ac.classList.remove('visible');inp.setAttribute('aria-expanded','false');
+  showResults(text);
+}
+function showExplore(){
+  explore.classList.add('visible');results.classList.remove('visible');
+}
+function showResults(q){
+  explore.classList.remove('visible');results.classList.add('visible');
+  document.getElementById('results-count').textContent=`4 RESULTS FOR "${q.toUpperCase()}"`;
+}
+
+// Auto-focus search on page load
+inp.focus();
+</script>
+</body>
+</html>

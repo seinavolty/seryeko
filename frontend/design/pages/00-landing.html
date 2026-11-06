@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<!--
+  Hallmark · macrostructure: Marquee Hero · tone: playful-cinema · anchor hue: coral-pink 15°
+  theme: custom "Midnight Cinema" · enrichment: E0 typography + CSS art gradient poster stack
+  genre: playful · nav: N5 floating pill · footer: Ft2 inline single-line
+  pre-emit critique: P5 H5 E5 S5 R4 V5
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SeryeKo — Watch Asian Dramas Forever</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Geist:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  overflow-x: clip;
+  background: oklch(10% 0.012 285);
+  color: oklch(94% 0.006 285);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Tokens ─────────────────────────────────────────────────── */
+:root {
+  --color-paper:     oklch(10% 0.012 285);
+  --color-paper-2:   oklch(14% 0.013 285);
+  --color-paper-3:   oklch(18% 0.014 285);
+  --color-rule:      oklch(28% 0.010 285);
+  --color-muted:     oklch(48% 0.008 285);
+  --color-neutral:   oklch(62% 0.006 285);
+  --color-ink:       oklch(94% 0.006 285);
+  --color-accent:    oklch(68% 0.220 15);
+  --color-accent-2:  oklch(75% 0.180 20);
+  --color-focus:     oklch(72% 0.210 15);
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Space Mono", ui-monospace, monospace;
+  --text-xs: 0.64rem; --text-sm: 0.8rem; --text-base: 1rem;
+  --text-md: 1.25rem; --text-lg: 1.5625rem; --text-xl: 1.9531rem;
+  --text-display-s: clamp(2.2rem, 6vw + 1rem, 3.5rem);
+  --text-display:   clamp(2.75rem, 8vw + 1rem, 5.5rem);
+  --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem;
+  --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem; --space-20: 5rem;
+  --radius-sm: 0.375rem; --radius-md: 0.75rem; --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem; --radius-pill: 100vmax;
+  --dur-short: 100ms; --dur-base: 200ms; --dur-long: 350ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-bottom-h: 4rem;
+}
+
+/* ── Floating pill nav ──────────────────────────────────────── */
+.nav-pill {
+  position: fixed;
+  top: var(--space-5);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  background: oklch(14% 0.016 285 / 0.85);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid oklch(30% 0.012 285);
+  border-radius: var(--radius-pill);
+}
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-md);
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.nav-wordmark span.dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+.nav-links {
+  display: none;
+}
+@media (min-width: 60rem) {
+  .nav-links {
+    display: flex;
+    gap: var(--space-6);
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: var(--text-sm);
+    color: var(--color-neutral);
+    text-decoration: none;
+    font-weight: 400;
+    white-space: nowrap;
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .nav-links a:hover { color: var(--color-ink); }
+}
+.nav-cta {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-5);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--dur-base) var(--ease-out), transform var(--dur-short) var(--ease-out);
+}
+.nav-cta:hover { background: var(--color-accent-2); transform: translateY(-1px); }
+.nav-cta:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.nav-cta:active { transform: translateY(0); }
+
+/* ── Hero: Marquee Hero ─────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
+}
+
+/* Poster stack art — CSS only, no images */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.poster-stack {
+  position: absolute;
+  right: -5%;
+  top: 10%;
+  display: flex;
+  gap: -8px;
+  transform: rotate(8deg);
+}
+@media (max-width: 60rem) {
+  .poster-stack {
+    right: -20%;
+    top: 5%;
+    opacity: 0.35;
+    transform: rotate(6deg) scale(0.8);
+  }
+}
+.poster {
+  width: 120px;
+  height: 180px;
+  border-radius: var(--radius-md);
+  margin-left: -24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 24px 64px oklch(0% 0 0 / 0.7);
+  flex-shrink: 0;
+}
+.poster:nth-child(1) { background: linear-gradient(150deg, oklch(38% 0.14 300), oklch(18% 0.10 260)); transform: rotate(-6deg) translateY(16px); }
+.poster:nth-child(2) { background: linear-gradient(150deg, oklch(42% 0.18 10), oklch(22% 0.12 350)); transform: rotate(-2deg); }
+.poster:nth-child(3) { background: linear-gradient(150deg, oklch(40% 0.16 200), oklch(20% 0.10 230)); transform: rotate(3deg) translateY(-8px); }
+.poster:nth-child(4) { background: linear-gradient(150deg, oklch(45% 0.18 50), oklch(24% 0.12 30)); transform: rotate(7deg) translateY(24px); }
+.poster:nth-child(5) { background: linear-gradient(150deg, oklch(38% 0.14 140), oklch(18% 0.10 160)); transform: rotate(11deg) translateY(8px); }
+/* poster title bar */
+.poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, oklch(8% 0.01 285), transparent 50%);
+}
+
+/* subtle grain overlay */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+/* Edge fade for poster column */
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 75% 90% at 15% 50%,
+    var(--color-paper) 0%,
+    oklch(10% 0.012 285 / 0.7) 50%,
+    transparent 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: clamp(5rem, 14vw, 9rem) clamp(1.25rem, 5vw, 4rem) var(--space-12);
+  max-width: 680px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+}
+.hero-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-accent);
+}
+
+.hero-h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-display);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  margin-bottom: var(--space-6);
+}
+.hero-h1 em {
+  font-style: normal;
+  color: var(--color-accent);
+}
+
+.hero-sub {
+  font-size: var(--text-md);
+  color: var(--color-neutral);
+  line-height: 1.6;
+  max-width: 48ch;
+  margin-bottom: var(--space-8);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-md);
+  color: oklch(8% 0.010 285);
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: var(--space-4) var(--space-8);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--dur-base) var(--ease-out), transform var(--dur-short) var(--ease-out);
+}
+.btn-primary:hover { background: var(--color-accent-2); transform: translateY(-2px); }
+.btn-primary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary svg { flex-shrink: 0; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-base);
+  color: var(--color-neutral);
+  background: transparent;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  padding: var(--space-4) var(--space-6);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+.btn-ghost:hover { color: var(--color-ink); border-color: var(--color-neutral); }
+.btn-ghost:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+/* ── Trust bar ──────────────────────────────────────────────── */
+.hero-trust {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-6) clamp(1.25rem, 5vw, 4rem);
+  border-top: 1px solid var(--color-rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  align-items: center;
+}
+.trust-stat {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+.trust-stat .num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-xl);
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.trust-stat .label {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+.trust-divider {
+  width: 1px;
+  height: 2rem;
+  background: var(--color-rule);
+}
+
+/* ── Swipe feature section ──────────────────────────────────── */
+.section {
+  padding: var(--space-16) clamp(1.25rem, 5vw, 4rem);
+}
+.section-label {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+.section-h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-display-s);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  margin-bottom: var(--space-4);
+}
+.section-sub {
+  font-size: var(--text-md);
+  color: var(--color-neutral);
+  max-width: 52ch;
+  line-height: 1.6;
+  margin-bottom: var(--space-10);
+}
+
+/* Swipe demo phone mockup — using CSS art */
+.phone-demo-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+@media (min-width: 60rem) {
+  .phone-demo-wrap {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.phone-frame {
+  position: relative;
+  width: min(280px, 100%);
+  aspect-ratio: 9/19.5;
+  background: var(--color-paper-2);
+  border-radius: 2.5rem;
+  border: 2px solid var(--color-rule);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 8px oklch(14% 0.012 285),
+    0 40px 80px oklch(0% 0 0 / 0.6);
+  margin: 0 auto;
+}
+/* Notch */
+.phone-frame::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50%;
+  width: 90px; height: 24px;
+  background: var(--color-paper-2);
+  border-radius: 0 0 1rem 1rem;
+  z-index: 10;
+}
+/* Scrollable feed inside phone */
+.phone-feed {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 28px;
+  overflow: hidden;
+}
+.phone-card {
+  flex-shrink: 0;
+  height: 33%;
+  border-radius: var(--radius-sm);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-3);
+}
+.phone-card:nth-child(1) { background: linear-gradient(160deg, oklch(35% 0.15 320) 0%, oklch(15% 0.08 280) 100%); }
+.phone-card:nth-child(2) { background: linear-gradient(160deg, oklch(38% 0.17 15) 0%, oklch(18% 0.09 30) 100%); }
+.phone-card:nth-child(3) { background: linear-gradient(160deg, oklch(36% 0.14 200) 0%, oklch(16% 0.08 220) 100%); }
+.phone-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, oklch(8% 0.01 285 / 0.9) 0%, transparent 50%);
+}
+.phone-card-title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.6rem;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+/* Swipe arrow indicator */
+.swipe-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-top: var(--space-4);
+  justify-content: center;
+}
+.swipe-indicator .arrow {
+  display: inline-block;
+  animation: swipe-up 1.5s var(--ease-out) infinite;
+}
+@keyframes swipe-up {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ── Features: asymmetric grid ──────────────────────────────── */
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+@media (min-width: 40rem) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .feature-card:nth-child(1) { grid-row: span 2; }
+}
+@media (min-width: 60rem) {
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .feature-card:nth-child(1) { grid-row: span 1; }
+  .feature-card:nth-child(4) { grid-column: span 2; }
+}
+
+.feature-card {
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: border-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .feature-card:hover {
+    border-color: oklch(42% 0.018 285);
+    transform: translateY(-2px);
+  }
+}
+.feature-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-md);
+  background: oklch(68% 0.220 15 / 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.feature-card p {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+/* ── Provider scroll strip ──────────────────────────────────── */
+.providers-section {
+  padding: var(--space-12) 0;
+  overflow: hidden;
+}
+.providers-section h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+.providers-track {
+  display: flex;
+  gap: var(--space-4);
+  animation: scroll-left 28s linear infinite;
+  width: max-content;
+}
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .providers-track { animation: none; flex-wrap: wrap; justify-content: center; }
+}
+.provider-chip {
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-5);
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* ── Pricing: lifetime ──────────────────────────────────────── */
+.pricing-section {
+  padding: var(--space-16) clamp(1.25rem, 5vw, 4rem);
+  text-align: center;
+}
+.pricing-card {
+  max-width: 440px;
+  margin: 0 auto;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10);
+  position: relative;
+  overflow: hidden;
+}
+.pricing-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--color-accent);
+}
+.pricing-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  border: 1px solid oklch(68% 0.220 15 / 0.3);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-4);
+  margin-bottom: var(--space-6);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pricing-price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  color: var(--color-ink);
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.pricing-currency {
+  font-size: var(--text-xl);
+  vertical-align: super;
+  color: var(--color-accent);
+}
+.pricing-period {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+.pricing-features {
+  list-style: none;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+.pricing-features li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-base);
+  color: var(--color-neutral);
+}
+.pricing-features li::before {
+  content: "";
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: oklch(68% 0.220 15 / 0.15);
+  border: 1.5px solid var(--color-accent);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='oklch(68%25 0.220 15)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2,7 5,10 12,4'/%3E%3C/svg%3E");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ── FAQ ────────────────────────────────────────────────────── */
+.faq-section {
+  padding: var(--space-16) clamp(1.25rem, 5vw, 4rem);
+  max-width: 680px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-top: 1px solid var(--color-rule);
+}
+.faq-item:last-child { border-bottom: 1px solid var(--color-rule); }
+details > summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-5) 0;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-md);
+  color: var(--color-ink);
+  gap: var(--space-4);
+  transition: color var(--dur-base) var(--ease-out);
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary:hover { color: var(--color-accent); }
+details > summary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: 4px; }
+.faq-chevron {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--color-rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+  transition: transform var(--dur-base) var(--ease-out);
+  font-size: 12px;
+}
+details[open] .faq-chevron { transform: rotate(180deg); }
+.faq-answer {
+  padding: 0 0 var(--space-5) 0;
+  font-size: var(--text-base);
+  color: var(--color-neutral);
+  line-height: 1.65;
+}
+
+/* ── Final CTA ──────────────────────────────────────────────── */
+.cta-section {
+  padding: var(--space-20) clamp(1.25rem, 5vw, 4rem);
+  text-align: center;
+  background: var(--color-paper-2);
+  border-radius: var(--radius-xl);
+  margin: 0 clamp(1.25rem, 5vw, 4rem) var(--space-16);
+}
+.cta-section h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-display-s);
+  color: var(--color-ink);
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-4);
+  overflow-wrap: anywhere;
+}
+.cta-section p {
+  color: var(--color-neutral);
+  font-size: var(--text-md);
+  max-width: 44ch;
+  margin: 0 auto var(--space-8);
+  line-height: 1.6;
+}
+
+/* ── Footer: Ft2 inline ─────────────────────────────────────── */
+.footer {
+  padding: var(--space-8) clamp(1.25rem, 5vw, 4rem);
+  border-top: 1px solid var(--color-rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+}
+.footer-brand span { color: var(--color-accent); }
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  list-style: none;
+}
+.footer-links a {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.footer-links a:hover { color: var(--color-neutral); }
+.footer-copy {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+</style>
+</head>
+<body>
+
+<!-- Nav: N5 Floating pill -->
+<nav class="nav-pill" aria-label="Main navigation">
+  <a href="#" class="nav-wordmark" aria-label="SeryeKo home">
+    <span class="dot" aria-hidden="true"></span>SeryeKo
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#">Browse</a></li>
+    <li><a href="#">Providers</a></li>
+    <li><a href="01-login.html">Sign in</a></li>
+  </ul>
+  <a href="02-register.html" class="nav-cta">Start watching</a>
+</nav>
+
+<!-- Hero: Marquee Hero -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="poster-stack">
+      <div class="poster"></div>
+      <div class="poster"></div>
+      <div class="poster"></div>
+      <div class="poster"></div>
+      <div class="poster"></div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow" aria-hidden="true">Now streaming</div>
+    <h1 class="hero-h1" id="hero-heading">
+      Watch every drama.<br><em>Pay once.</em><br>Watch forever.
+    </h1>
+    <p class="hero-sub">
+      40+ Asian drama providers in one place. Korean, Chinese, Thai, Filipino — swipe through thousands of episodes. One lifetime payment, no subscriptions.
+    </p>
+    <div class="hero-actions">
+      <a href="02-register.html" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Start watching — one-time fee
+      </a>
+      <a href="01-login.html" class="btn-ghost">Sign in</a>
+    </div>
+  </div>
+
+  <div class="hero-trust" aria-label="Platform stats">
+    <div class="trust-stat">
+      <span class="num">40+</span>
+      <span class="label">providers</span>
+    </div>
+    <div class="trust-divider" aria-hidden="true"></div>
+    <div class="trust-stat">
+      <span class="num">3</span>
+      <span class="label">languages</span>
+    </div>
+    <div class="trust-divider" aria-hidden="true"></div>
+    <div class="trust-stat">
+      <span class="num">0</span>
+      <span class="label">monthly fees</span>
+    </div>
+  </div>
+</section>
+
+<!-- How it works: swipe demo -->
+<section class="section" aria-labelledby="how-heading">
+  <div class="phone-demo-wrap">
+    <div>
+      <p class="section-label" aria-hidden="true">How it works</p>
+      <h2 class="section-h2" id="how-heading">Swipe. Watch.<br>Obsess. Repeat.</h2>
+      <p class="section-sub">Fun unlimited scroll through episodes like social media. Find your next drama in seconds — by swiping the feed instead of searching menus.</p>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:1rem;">
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;">
+          <span style="font-family:var(--font-display); font-weight:800; font-size:1.5rem; color:var(--color-accent); line-height:1; flex-shrink:0;">01</span>
+          <div>
+            <strong style="font-family:var(--font-display); font-size:var(--text-md); color:var(--color-ink);">Browse the feed</strong>
+            <p style="font-size:var(--text-base); color:var(--color-muted); margin-top:0.25rem;">Swipe up through auto-playing clips. Swipe right to save for later.</p>
+          </div>
+        </li>
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;">
+          <span style="font-family:var(--font-display); font-weight:800; font-size:1.5rem; color:var(--color-accent); line-height:1; flex-shrink:0;">02</span>
+          <div>
+            <strong style="font-family:var(--font-display); font-size:var(--text-md); color:var(--color-ink);">Pick a drama</strong>
+            <p style="font-size:var(--text-base); color:var(--color-muted); margin-top:0.25rem;">Tap to open. See all episodes. Scroll down = next episode plays.</p>
+          </div>
+        </li>
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;">
+          <span style="font-family:var(--font-display); font-weight:800; font-size:1.5rem; color:var(--color-accent); line-height:1; flex-shrink:0;">03</span>
+          <div>
+            <strong style="font-family:var(--font-display); font-size:var(--text-md); color:var(--color-ink);">Never stop</strong>
+            <p style="font-size:var(--text-base); color:var(--color-muted); margin-top:0.25rem;">Auto-play advances episodes. You pick when to pause.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="phone-frame" aria-hidden="true">
+        <div class="phone-feed">
+          <div class="phone-card"><span class="phone-card-title">Crash Landing on You S1 E1</span></div>
+          <div class="phone-card"><span class="phone-card-title">Story of Yanxi Palace E1</span></div>
+          <div class="phone-card"><span class="phone-card-title">My Misterious Boss E1</span></div>
+        </div>
+      </div>
+      <div class="swipe-indicator" aria-hidden="true">
+        <span class="arrow">↑</span>
+        <span>swipe to discover</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features: asymmetric grid -->
+<section class="section" aria-labelledby="features-heading">
+  <p class="section-label" aria-hidden="true">Features</p>
+  <h2 class="section-h2" id="features-heading">Everything you need.<br>Nothing you don't.</h2>
+  <p class="section-sub">Built for the drama fanatic who wants fast access, not a complicated dashboard.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <h3>40+ Drama Providers</h3>
+      <p>DramaBox, ShortMax, ReelShort, FlickReels, DramaWave, and 35 more — all in one app.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h3>English · Tagalog · Indonesian</h3>
+      <p>Full app UI and subtitles in three languages. Switches automatically from your device.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </div>
+      <h3>Fun unlimited scroll</h3>
+      <p>Scroll down = next episode. No tapping menus. Just keep watching.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3>Pay once. Watch forever.</h3>
+      <p>No monthly traps. One price set by the admin — yours to keep forever. 7-day refund guaranteed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Provider logos: marquee -->
+<section class="providers-section" aria-label="Streaming providers">
+  <h3>Content from 40+ providers</h3>
+  <div class="providers-track" aria-hidden="true">
+    <span class="provider-chip">DramaBox</span><span class="provider-chip">ShortMax</span>
+    <span class="provider-chip">ReelShort</span><span class="provider-chip">FlickReels</span>
+    <span class="provider-chip">DramaWave</span><span class="provider-chip">StarShort</span>
+    <span class="provider-chip">MicroDrama</span><span class="provider-chip">DramaNova</span>
+    <span class="provider-chip">GoodShort</span><span class="provider-chip">Melolo</span>
+    <span class="provider-chip">ReelBuzz</span><span class="provider-chip">RapidTV</span>
+    <span class="provider-chip">CubeTV</span><span class="provider-chip">Velolo</span>
+    <span class="provider-chip">KalosTV</span><span class="provider-chip">BonusTV</span>
+    <!-- duplicate for seamless loop -->
+    <span class="provider-chip">DramaBox</span><span class="provider-chip">ShortMax</span>
+    <span class="provider-chip">ReelShort</span><span class="provider-chip">FlickReels</span>
+    <span class="provider-chip">DramaWave</span><span class="provider-chip">StarShort</span>
+    <span class="provider-chip">MicroDrama</span><span class="provider-chip">DramaNova</span>
+    <span class="provider-chip">GoodShort</span><span class="provider-chip">Melolo</span>
+    <span class="provider-chip">ReelBuzz</span><span class="provider-chip">RapidTV</span>
+    <span class="provider-chip">CubeTV</span><span class="provider-chip">Velolo</span>
+    <span class="provider-chip">KalosTV</span><span class="provider-chip">BonusTV</span>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing-section" aria-labelledby="pricing-heading">
+  <p class="section-label" aria-hidden="true" style="display:block; margin-bottom:var(--space-4);">Pricing</p>
+  <h2 class="section-h2" id="pricing-heading" style="margin-bottom:var(--space-10);">One price.<br>For life.</h2>
+  <div class="pricing-card">
+    <div class="pricing-badge">Lifetime Access</div>
+    <div class="pricing-price">
+      <span class="pricing-currency">₱</span>999
+    </div>
+    <p class="pricing-period">One-time payment · Never expires · 7-day refund</p>
+    <ul class="pricing-features">
+      <li>All dramas from 40+ providers</li>
+      <li>English, Tagalog & Indonesian UI</li>
+      <li>Fun unlimited scroll player</li>
+      <li>Watchlist & continue watching</li>
+      <li>Up to 3 devices at once</li>
+      <li>GCash, Maya & card payment</li>
+    </ul>
+    <a href="02-register.html" class="btn-primary" style="width:100%; justify-content:center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Get lifetime access
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" aria-labelledby="faq-heading">
+  <p class="section-label" aria-hidden="true">FAQ</p>
+  <h2 class="section-h2" id="faq-heading" style="margin-bottom:var(--space-8);">Real answers.</h2>
+  <div class="faq-item">
+    <details>
+      <summary>Is this really a one-time payment? <span class="faq-chevron" aria-hidden="true">▾</span></summary>
+      <p class="faq-answer">Yes. Pay once and you're done. No renewal, no fine print. If the price goes up next month, your account is unaffected.</p>
+    </details>
+  </div>
+  <div class="faq-item">
+    <details>
+      <summary>What dramas can I watch? <span class="faq-chevron" aria-hidden="true">▾</span></summary>
+      <p class="faq-answer">Korean, Chinese, Thai, Japanese, and Filipino dramas from 40+ providers — over 10,000 titles combined. The library grows automatically as providers add content.</p>
+    </details>
+  </div>
+  <div class="faq-item">
+    <details>
+      <summary>What payment methods are accepted? <span class="faq-chevron" aria-hidden="true">▾</span></summary>
+      <p class="faq-answer">GCash, Maya (PayMaya), and Visa/Mastercard via PayMongo. Payments are processed securely — we never store your card details.</p>
+    </details>
+  </div>
+  <div class="faq-item">
+    <details>
+      <summary>Can I use it on my phone and TV? <span class="faq-chevron" aria-hidden="true">▾</span></summary>
+      <p class="faq-answer">The web app works on any browser. Mobile is the primary experience. Install it as a PWA from your browser menu for a native-app feel on Android and iOS. Up to 3 devices per account.</p>
+    </details>
+  </div>
+  <div class="faq-item">
+    <details>
+      <summary>What if I want a refund? <span class="faq-chevron" aria-hidden="true">▾</span></summary>
+      <p class="faq-answer">7-day money-back guarantee, no questions asked. Email support and we'll process it within 24 hours via PayMongo.</p>
+    </details>
+  </div>
+</section>
+
+<!-- CTA strip -->
+<div class="cta-section" role="complementary" aria-label="Sign up call to action">
+  <h2>Start your drama marathon.</h2>
+  <p>Join thousands of viewers watching Asian dramas for free of monthly fees.</p>
+  <a href="02-register.html" class="btn-primary">Get lifetime access →</a>
+</div>
+
+<!-- Footer: Ft2 -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-brand">Drama<span>Stream</span></div>
+  <ul class="footer-links" role="list">
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Terms</a></li>
+    <li><a href="#">Support</a></li>
+    <li><a href="01-login.html">Sign in</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 SeryeKo</span>
+</footer>
+
+</body>
+</html>

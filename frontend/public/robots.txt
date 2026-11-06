@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Allow: /browse
+Allow: /search
+Allow: /drama/
+Allow: /help
+
+# Block authenticated/private routes
+Disallow: /admin
+Disallow: /admin/
+Disallow: /profile
+Disallow: /profile/
+Disallow: /watch/
+Disallow: /upgrade
+Disallow: /refund
+Disallow: /withdraw
+Disallow: /profile/edit
+Disallow: /profile/password
+Disallow: /profile/devices
+
+# Sitemap
+Sitemap: https://seryeko.com/sitemap.xml

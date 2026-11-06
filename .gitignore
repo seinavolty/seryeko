@@ -1,0 +1,51 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+client_secret*.json
+**/client_secret*.json
+
+# Databases & local storage
+*.db
+*.sqlite
+*.sqlite3
+.pgdata/
+.api-data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.venv/
+venv/
+ENV/
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS & Editor
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

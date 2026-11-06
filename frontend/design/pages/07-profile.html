@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<!--
+  Hallmark · macrostructure: Bento Grid · tone: playful-cinema · anchor: coral-pink 15°
+  page: Profile / Watchlist — user stats bento + watchlist grid + settings
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Profile — SeryeKo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Geist:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:clip;background:oklch(10% 0.012 285);}
+body{overflow-x:clip;min-height:100dvh;color:oklch(94% 0.006 285);font-family:"Geist",ui-sans-serif,system-ui,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased;padding-bottom:calc(4rem + env(safe-area-inset-bottom));}
+:root{
+  --paper:oklch(10% 0.012 285);--paper-2:oklch(14% 0.013 285);--paper-3:oklch(18% 0.014 285);
+  --rule:oklch(28% 0.010 285);--muted:oklch(48% 0.008 285);--neutral:oklch(62% 0.006 285);
+  --ink:oklch(94% 0.006 285);--accent:oklch(68% 0.220 15);--accent-2:oklch(75% 0.180 20);
+  --focus:oklch(72% 0.210 15);--success:oklch(65% 0.17 145);
+  --font-d:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --font-b:"Geist",ui-sans-serif,system-ui,sans-serif;
+  --font-o:"Space Mono",ui-monospace,monospace;
+  --r-sm:0.375rem;--r-md:0.75rem;--r-lg:1.25rem;--r-xl:1.75rem;--r-pill:100vmax;
+  --dur:200ms;--ease:cubic-bezier(0.16,1,0.3,1);--nav-h:4rem;
+}
+
+/* ── Top header ────────────────────────────────────────────── */
+.top-header{
+  position:sticky;top:0;z-index:100;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(1rem,4vw,2rem);
+  background:oklch(10% 0.016 285/0.88);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid oklch(22% 0.010 285/0.6);
+}
+.page-title{font-family:var(--font-d);font-weight:800;font-size:1.2rem;letter-spacing:-0.025em;color:var(--ink);}
+.settings-btn{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--paper-2);border:1px solid var(--rule);
+  color:var(--neutral);cursor:pointer;text-decoration:none;
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.settings-btn:hover{background:var(--paper-3);color:var(--ink);}
+.settings-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+
+/* ── Profile hero ──────────────────────────────────────────── */
+.profile-hero{
+  padding:1.5rem clamp(1rem,4vw,2rem);
+  display:flex;align-items:center;gap:1.25rem;
+  border-bottom:1px solid oklch(20% 0.010 285/0.5);
+}
+.avatar-large{
+  width:64px;height:64px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),oklch(55% 0.18 300));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-weight:800;font-size:1.5rem;
+  color:oklch(8% 0.010 285);
+  border:2px solid oklch(68% 0.220 15/0.3);
+}
+.profile-info{flex:1;min-width:0;}
+.profile-name{
+  font-family:var(--font-d);font-weight:800;font-size:1.25rem;
+  letter-spacing:-0.02em;color:var(--ink);margin-bottom:0.25rem;
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.profile-email{
+  font-size:0.8rem;color:var(--muted);
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.lifetime-badge{
+  display:inline-flex;align-items:center;gap:0.375rem;
+  margin-top:0.5rem;
+  padding:0.25rem 0.625rem;
+  background:oklch(68% 0.220 15/0.12);
+  border:1px solid oklch(68% 0.220 15/0.35);
+  border-radius:var(--r-pill);
+  font-family:var(--font-o);font-size:0.58rem;
+  color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;
+}
+.edit-btn{
+  flex-shrink:0;
+  padding:0.5rem 1rem;
+  background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-pill);
+  font-family:var(--font-d);font-weight:600;font-size:0.78rem;
+  color:var(--neutral);cursor:pointer;white-space:nowrap;
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+.edit-btn:hover{background:var(--paper-3);color:var(--ink);border-color:oklch(40% 0.012 285);}
+.edit-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+
+/* ── Bento stats grid ──────────────────────────────────────── */
+.bento{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:0.625rem;
+  padding:1.25rem clamp(1rem,4vw,2rem);
+}
+@media(min-width:40rem){
+  .bento{grid-template-columns:repeat(4,1fr);}
+  .bento-card:nth-child(1){grid-column:span 2;}
+}
+@media(min-width:60rem){
+  .bento{grid-template-columns:repeat(4,1fr);}
+}
+
+.bento-card{
+  background:var(--paper-2);
+  border:1px solid var(--rule);
+  border-radius:var(--r-xl);
+  padding:1.25rem;
+  display:flex;flex-direction:column;gap:0.5rem;
+  position:relative;overflow:hidden;
+}
+.bento-card.accent-bg{
+  background:oklch(68% 0.220 15/0.1);
+  border-color:oklch(68% 0.220 15/0.25);
+}
+.bento-card.streak-bg{
+  background:oklch(65% 0.17 145/0.08);
+  border-color:oklch(65% 0.17 145/0.25);
+}
+.bento-label{
+  font-family:var(--font-o);font-size:0.58rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+.bento-num{
+  font-family:var(--font-d);font-weight:800;
+  font-size:clamp(1.8rem,5vw,2.75rem);
+  letter-spacing:-0.04em;
+  color:var(--ink);line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.bento-num.accent{color:var(--accent);}
+.bento-num.green{color:var(--success);}
+.bento-sub{font-size:0.72rem;color:var(--muted);}
+.bento-icon{
+  position:absolute;top:1rem;right:1rem;
+  font-size:1.5rem;opacity:0.35;
+}
+
+/* ── Tab navigation ────────────────────────────────────────── */
+.tabs{
+  display:flex;gap:0;
+  padding:0 clamp(1rem,4vw,2rem);
+  border-bottom:1px solid oklch(20% 0.010 285/0.5);
+  overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{
+  flex-shrink:0;
+  padding:0.875rem 1.25rem;
+  background:none;border:none;cursor:pointer;
+  font-family:var(--font-d);font-weight:600;font-size:0.88rem;
+  color:var(--muted);white-space:nowrap;
+  position:relative;
+  transition:color var(--dur) var(--ease);
+}
+.tab-btn::after{
+  content:"";position:absolute;bottom:0;left:0;right:0;
+  height:2px;background:var(--accent);
+  transform:scaleX(0);transition:transform var(--dur) var(--ease);
+}
+.tab-btn.active{color:var(--accent);}
+.tab-btn.active::after{transform:scaleX(1);}
+.tab-btn:hover{color:var(--neutral);}
+.tab-btn:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;}
+
+/* ── Tab content panels ────────────────────────────────────── */
+.tab-panel{display:none;padding:1rem clamp(1rem,4vw,2rem);}
+.tab-panel.visible{display:block;}
+
+/* Watchlist grid */
+.watchlist-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0.75rem;
+}
+@media(min-width:40rem){.watchlist-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(min-width:60rem){.watchlist-grid{grid-template-columns:repeat(4,minmax(0,1fr));}}
+
+.wl-card{
+  display:flex;flex-direction:column;text-decoration:none;cursor:pointer;
+  position:relative;
+}
+.wl-img{
+  width:100%;aspect-ratio:2/3;border-radius:var(--r-md);
+  overflow:hidden;position:relative;margin-bottom:0.5rem;background:var(--paper-2);
+}
+.wl-img-inner{width:100%;height:100%;transition:transform 350ms var(--ease);}
+@media(hover:hover) and (pointer:fine){.wl-card:hover .wl-img-inner{transform:scale(1.04);}}
+.wl-overlay{position:absolute;inset:0;background:linear-gradient(to top,oklch(6% 0.01 285/0.8) 0%,transparent 50%);}
+.wl-remove{
+  position:absolute;top:0.5rem;right:0.5rem;
+  width:26px;height:26px;border-radius:50%;
+  background:oklch(10% 0.012 285/0.75);border:none;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);cursor:pointer;backdrop-filter:blur(4px);
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.wl-remove:hover{background:oklch(60% 0.22 25/0.7);color:oklch(94% 0.006 285);}
+.wl-remove:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.wl-status{
+  position:absolute;bottom:0.5rem;left:0.5rem;
+  font-family:var(--font-o);font-size:0.5rem;color:oklch(90% 0.005 285);
+  background:oklch(10% 0.012 285/0.72);border-radius:var(--r-pill);
+  padding:0.1rem 0.375rem;backdrop-filter:blur(4px);
+}
+/* Progress bar for in-progress dramas */
+.wl-progress{
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;background:oklch(28% 0.010 285);
+}
+.wl-progress-fill{height:100%;background:var(--accent);border-radius:var(--r-pill);}
+.wl-title{
+  font-family:var(--font-d);font-weight:700;font-size:0.82rem;
+  color:var(--ink);line-height:1.3;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+}
+.wl-meta{font-size:0.68rem;color:var(--muted);margin-top:0.2rem;}
+
+/* History section */
+.history-list{display:flex;flex-direction:column;gap:0;}
+.hist-item{
+  display:flex;align-items:center;gap:0.875rem;
+  padding:0.875rem 0;
+  border-bottom:1px solid oklch(18% 0.010 285/0.5);
+  text-decoration:none;cursor:pointer;
+  transition:background var(--dur) var(--ease);
+  border-radius:var(--r-md);
+  padding-left:0.5rem;padding-right:0.5rem;
+}
+.hist-item:hover{background:var(--paper-2);}
+.hist-item:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.hist-img{
+  flex-shrink:0;width:56px;aspect-ratio:2/3;
+  border-radius:var(--r-sm);overflow:hidden;
+}
+.hist-img-bg{width:100%;height:100%;}
+.hist-info{flex:1;min-width:0;}
+.hist-title{font-family:var(--font-d);font-weight:700;font-size:0.88rem;color:var(--ink);margin-bottom:0.2rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.hist-ep{font-size:0.72rem;color:var(--muted);}
+.hist-date{font-family:var(--font-o);font-size:0.6rem;color:var(--muted);flex-shrink:0;text-align:right;}
+
+/* Settings section */
+.settings-list{display:flex;flex-direction:column;gap:0;}
+.settings-group-label{
+  font-family:var(--font-d);font-weight:700;font-size:0.72rem;
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--muted);margin:1.25rem 0 0.625rem;
+}
+.settings-item{
+  display:flex;align-items:center;gap:0.875rem;
+  padding:0.875rem 0;
+  border-bottom:1px solid oklch(18% 0.010 285/0.5);
+  cursor:pointer;
+}
+.settings-item:last-child{border-bottom:none;}
+.si-icon{
+  width:36px;height:36px;border-radius:var(--r-md);
+  background:var(--paper-2);border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--neutral);flex-shrink:0;
+}
+.si-label{flex:1;font-family:var(--font-d);font-weight:600;font-size:0.88rem;color:var(--ink);}
+.si-value{font-size:0.78rem;color:var(--muted);white-space:nowrap;}
+.si-arrow{color:var(--muted);}
+/* Toggle switch */
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-slider{
+  position:absolute;inset:0;
+  background:oklch(30% 0.010 285);border-radius:var(--r-pill);
+  cursor:pointer;transition:background var(--dur) var(--ease);
+}
+.toggle-slider::after{
+  content:"";position:absolute;width:16px;height:16px;border-radius:50%;
+  background:oklch(60% 0.006 285);
+  top:3px;left:3px;
+  transition:all var(--dur) var(--ease);
+}
+.toggle input:checked + .toggle-slider{background:var(--accent);}
+.toggle input:checked + .toggle-slider::after{background:oklch(8% 0.010 285);left:21px;}
+.toggle input:focus-visible + .toggle-slider{outline:2px solid var(--focus);outline-offset:2px;}
+
+/* Sign out button */
+.signout-btn{
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;
+  width:100%;margin-top:1.5rem;
+  padding:0.875rem;
+  background:oklch(60% 0.22 25/0.1);
+  border:1px solid oklch(60% 0.22 25/0.3);
+  border-radius:var(--r-pill);
+  font-family:var(--font-d);font-weight:700;font-size:0.9rem;
+  color:oklch(70% 0.20 25);cursor:pointer;
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+.signout-btn:hover{background:oklch(60% 0.22 25/0.18);border-color:oklch(60% 0.22 25/0.5);}
+.signout-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+
+/* Gc colors */
+.gc-1{background:linear-gradient(160deg,oklch(38% 0.17 320),oklch(18% 0.09 300));}
+.gc-2{background:linear-gradient(160deg,oklch(42% 0.19 15),oklch(20% 0.10 350));}
+.gc-3{background:linear-gradient(160deg,oklch(36% 0.15 200),oklch(16% 0.08 220));}
+.gc-4{background:linear-gradient(160deg,oklch(40% 0.17 50),oklch(20% 0.09 30));}
+.gc-5{background:linear-gradient(160deg,oklch(35% 0.14 265),oklch(15% 0.08 250));}
+.gc-6{background:linear-gradient(160deg,oklch(43% 0.18 140),oklch(23% 0.10 160));}
+.gc-7{background:linear-gradient(160deg,oklch(38% 0.16 30),oklch(18% 0.09 20));}
+.gc-8{background:linear-gradient(160deg,oklch(41% 0.17 280),oklch(21% 0.09 260));}
+
+/* ── Bottom nav ────────────────────────────────────────────── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:oklch(12% 0.014 285/0.92);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-top:1px solid oklch(24% 0.010 285);display:flex;align-items:center;z-index:200;}
+.bottom-nav-inner{display:flex;align-items:center;justify-content:space-around;width:100%;padding:0 0.5rem;}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:0.25rem;padding:0.5rem 0.75rem;border-radius:var(--r-lg);background:none;border:none;cursor:pointer;text-decoration:none;color:var(--muted);transition:color var(--dur) var(--ease),background var(--dur) var(--ease);min-width:48px;-webkit-tap-highlight-color:transparent;}
+.nav-btn:hover,.nav-btn.active{color:var(--accent);}
+.nav-btn.active{background:oklch(68% 0.220 15/0.08);}
+.nav-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.nav-btn span{font-family:var(--font-d);font-size:0.6rem;font-weight:600;letter-spacing:0.02em;white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<!-- Top header -->
+<header class="top-header">
+  <h1 class="page-title">Profile</h1>
+  <a href="#settings" class="settings-btn" aria-label="Settings" onclick="switchTab('settings')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </a>
+</header>
+
+<main>
+
+  <!-- Profile hero -->
+  <div class="profile-hero">
+    <div class="avatar-large" aria-hidden="true">M</div>
+    <div class="profile-info">
+      <div class="profile-name">Maria Santos</div>
+      <div class="profile-email">maria.santos@email.com</div>
+      <div class="lifetime-badge">✨ Lifetime member</div>
+    </div>
+    <button class="edit-btn">Edit</button>
+  </div>
+
+  <!-- Bento stats -->
+  <div class="bento" role="list" aria-label="Viewing statistics">
+    <div class="bento-card accent-bg" role="listitem" aria-label="142 episodes watched">
+      <span class="bento-icon" aria-hidden="true">🎬</span>
+      <span class="bento-label">Episodes watched</span>
+      <span class="bento-num accent">142</span>
+      <span class="bento-sub">across 12 dramas</span>
+    </div>
+    <div class="bento-card streak-bg" role="listitem" aria-label="7 day streak">
+      <span class="bento-icon" aria-hidden="true">🔥</span>
+      <span class="bento-label">Day streak</span>
+      <span class="bento-num green">7</span>
+      <span class="bento-sub">Keep it going!</span>
+    </div>
+    <div class="bento-card" role="listitem" aria-label="48 hours watch time">
+      <span class="bento-label">Watch time</span>
+      <span class="bento-num">48<span style="font-size:1rem;color:var(--muted);letter-spacing:0;"> h</span></span>
+      <span class="bento-sub">this month</span>
+    </div>
+    <div class="bento-card" role="listitem" aria-label="18 dramas in watchlist">
+      <span class="bento-label">Watchlist</span>
+      <span class="bento-num">18</span>
+      <span class="bento-sub">saved to watch</span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs" role="tablist" aria-label="Profile sections">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-watchlist" id="btn-watchlist" onclick="switchTab('watchlist')">Watchlist</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-history" id="btn-history" onclick="switchTab('history')">History</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-settings" id="btn-settings" onclick="switchTab('settings')">Settings</button>
+  </div>
+
+  <!-- WATCHLIST TAB -->
+  <div class="tab-panel visible" id="tab-watchlist" role="tabpanel" aria-labelledby="btn-watchlist">
+    <div class="watchlist-grid" role="list" aria-label="Your watchlist">
+
+      <a href="04-drama-detail.html" class="wl-card" role="listitem" aria-label="Start watching Vincenzo">
+        <div class="wl-img">
+          <div class="gc-4 wl-img-inner"></div>
+          <div class="wl-overlay"></div>
+          <button class="wl-remove" onclick="event.preventDefault();this.closest('.wl-card').remove()" aria-label="Remove Vincenzo from watchlist"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          <div class="wl-status">20 eps</div>
+        </div>
+        <div class="wl-title">Vincenzo</div>
+        <div class="wl-meta">🇰🇷 Action</div>
+      </a>
+
+      <a href="04-drama-detail.html" class="wl-card" role="listitem" aria-label="Continue My Secret Romance, 62% watched">
+        <div class="wl-img">
+          <div class="gc-2 wl-img-inner"></div>
+          <div class="wl-overlay"></div>
+          <button class="wl-remove" onclick="event.preventDefault();this.closest('.wl-card').remove()" aria-label="Remove from watchlist"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          <div class="wl-status">Ep 7 · 62%</div>
+          <div class="wl-progress"><div class="wl-progress-fill" style="width:62%;"></div></div>
+        </div>
+        <div class="wl-title">My Secret Romance</div>
+        <div class="wl-meta">🇰🇷 Romance</div>
+      </a>
+
+      <a href="04-drama-detail.html" class="wl-card" role="listitem" aria-label="Start watching Girl From Nowhere">
+        <div class="wl-img">
+          <div class="gc-7 wl-img-inner"></div>
+          <div class="wl-overlay"></div>
+          <button class="wl-remove" onclick="event.preventDefault();this.closest('.wl-card').remove()" aria-label="Remove from watchlist"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          <div class="wl-status">14 eps</div>
+        </div>
+        <div class="wl-title">Girl From Nowhere</div>
+        <div class="wl-meta">🇹🇭 Thriller</div>
+      </a>
+
+      <a href="04-drama-detail.html" class="wl-card" role="listitem" aria-label="Continue Story of Yanxi Palace, 30% watched">
+        <div class="wl-img">
+          <div class="gc-3 wl-img-inner"></div>
+          <div class="wl-overlay"></div>
+          <button class="wl-remove" onclick="event.preventDefault();this.closest('.wl-card').remove()" aria-label="Remove from watchlist"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          <div class="wl-status">Ep 22 · 30%</div>
+          <div class="wl-progress"><div class="wl-progress-fill" style="width:30%;"></div></div>
+        </div>
+        <div class="wl-title">Story of Yanxi Palace</div>
+        <div class="wl-meta">🇨🇳 Historical</div>
+      </a>
+
+      <a href="04-drama-detail.html" class="wl-card" role="listitem" aria-label="Start watching Goblin">
+        <div class="wl-img">
+          <div class="gc-5 wl-img-inner"></div>
+          <div class="wl-overlay"></div>
+          <button class="wl-remove" onclick="event.preventDefault();this.closest('.wl-card').remove()" aria-label="Remove from watchlist"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          <div class="wl-status">16 eps</div>
+        </div>
+        <div class="wl-title">Goblin</div>
+        <div class="wl-meta">🇰🇷 Fantasy</div>
+      </a>
+
+      <a href="04-drama-detail.html" class="wl-card" role="listitem" aria-label="Start watching Flower of Evil">
+        <div class="wl-img">
+          <div class="gc-8 wl-img-inner"></div>
+          <div class="wl-overlay"></div>
+          <button class="wl-remove" onclick="event.preventDefault();this.closest('.wl-card').remove()" aria-label="Remove from watchlist"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          <div class="wl-status">16 eps</div>
+        </div>
+        <div class="wl-title">Flower of Evil</div>
+        <div class="wl-meta">🇰🇷 Thriller</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- HISTORY TAB -->
+  <div class="tab-panel" id="tab-history" role="tabpanel" aria-labelledby="btn-history">
+    <div class="history-list" role="list" aria-label="Watch history">
+      <a href="04-drama-detail.html" class="hist-item" role="listitem" aria-label="Crash Landing on You — Episode 7 — Yesterday">
+        <div class="hist-img"><div class="gc-1 hist-img-bg"></div></div>
+        <div class="hist-info">
+          <div class="hist-title">Crash Landing on You</div>
+          <div class="hist-ep">Episode 7 · 62% watched</div>
+        </div>
+        <div class="hist-date">Yesterday</div>
+      </a>
+      <a href="04-drama-detail.html" class="hist-item" role="listitem" aria-label="My Secret Romance — Episode 7 — 2 days ago">
+        <div class="hist-img"><div class="gc-2 hist-img-bg"></div></div>
+        <div class="hist-info">
+          <div class="hist-title">My Secret Romance</div>
+          <div class="hist-ep">Episode 7 · Completed</div>
+        </div>
+        <div class="hist-date">2 days ago</div>
+      </a>
+      <a href="04-drama-detail.html" class="hist-item" role="listitem" aria-label="Story of Yanxi — Episode 22 — 3 days ago">
+        <div class="hist-img"><div class="gc-3 hist-img-bg"></div></div>
+        <div class="hist-info">
+          <div class="hist-title">Story of Yanxi Palace</div>
+          <div class="hist-ep">Episode 22 · In progress</div>
+        </div>
+        <div class="hist-date">3 days ago</div>
+      </a>
+      <a href="04-drama-detail.html" class="hist-item" role="listitem" aria-label="Vincenzo — Episode 1 — 4 days ago">
+        <div class="hist-img"><div class="gc-4 hist-img-bg"></div></div>
+        <div class="hist-info">
+          <div class="hist-title">Vincenzo</div>
+          <div class="hist-ep">Episode 1 · Just started</div>
+        </div>
+        <div class="hist-date">4 days ago</div>
+      </a>
+      <a href="04-drama-detail.html" class="hist-item" role="listitem" aria-label="Flower of Evil — All 16 episodes — Last week">
+        <div class="hist-img"><div class="gc-5 hist-img-bg"></div></div>
+        <div class="hist-info">
+          <div class="hist-title">Flower of Evil</div>
+          <div class="hist-ep">All 16 episodes · Finished ✅</div>
+        </div>
+        <div class="hist-date">Last week</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- SETTINGS TAB -->
+  <div class="tab-panel" id="tab-settings" role="tabpanel" aria-labelledby="btn-settings">
+    <div class="settings-list">
+      <p class="settings-group-label">Account</p>
+
+      <div class="settings-item" role="button" tabindex="0" aria-label="Edit profile">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <span class="si-label">Edit Profile</span>
+        <span class="si-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+
+      <div class="settings-item" role="button" tabindex="0" aria-label="Change password">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <span class="si-label">Change Password</span>
+        <span class="si-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+
+      <div class="settings-item" role="button" tabindex="0" aria-label="Linked devices">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <span class="si-label">Linked Devices</span>
+        <span class="si-value">2 / 3</span>
+        <span class="si-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+
+      <p class="settings-group-label">Preferences</p>
+
+      <div class="settings-item">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <span class="si-label">Language</span>
+        <span class="si-value">🇺🇸 English</span>
+        <span class="si-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+
+      <div class="settings-item">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <span class="si-label">Subtitles</span>
+        <span class="si-value">English (default)</span>
+        <span class="si-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+
+      <div class="settings-item">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <span class="si-label">Autoplay next episode</span>
+        <label class="toggle" aria-label="Toggle autoplay">
+          <input type="checkbox" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="settings-item">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <span class="si-label">Data saver</span>
+        <label class="toggle" aria-label="Toggle data saver">
+          <input type="checkbox">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="settings-item">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <span class="si-label">Push notifications</span>
+        <label class="toggle" aria-label="Toggle notifications">
+          <input type="checkbox" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <p class="settings-group-label">Support</p>
+
+      <div class="settings-item" role="button" tabindex="0" aria-label="Help center">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="si-label">Help & Support</span>
+        <span class="si-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+
+      <div class="settings-item" role="button" tabindex="0" aria-label="Request refund">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <span class="si-label">Request Refund</span>
+        <span class="si-value">7-day guarantee</span>
+        <span class="si-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+
+      <button class="signout-btn" onclick="if(confirm('Sign out?'))window.location.href='01-login.html'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<!-- Bottom nav -->
+<nav class="bottom-nav" aria-label="Main navigation">
+  <div class="bottom-nav-inner">
+    <a href="03-home.html" class="nav-btn" aria-label="Home"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Home</span></a>
+    <a href="03-movie-list.html" class="nav-btn" aria-label="Browse"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 2l-4 5-4-5"/></svg><span>Browse</span></a>
+    <a href="06-search.html" class="nav-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search</span></a>
+    <a href="07-profile.html" class="nav-btn active" aria-label="Watchlist & Profile" aria-current="page"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span>Watchlist</span></a>
+    <a href="07-profile.html" class="nav-btn" aria-label="Profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></a>
+  </div>
+</nav>
+
+<script>
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    b.classList.remove('active');b.setAttribute('aria-selected','false');
+  });
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('visible'));
+  const btn=document.getElementById('btn-'+name);
+  const panel=document.getElementById('tab-'+name);
+  if(btn){btn.classList.add('active');btn.setAttribute('aria-selected','true');}
+  if(panel){panel.classList.add('visible');}
+  if(name==='settings')document.getElementById('tab-settings').scrollIntoView({behavior:'smooth'});
+}
+// Handle settings link from header
+if(window.location.hash==='#settings'){switchTab('settings');}
+</script>
+</body>
+</html>

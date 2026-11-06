@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<!--
+  Hallmark · macrostructure: Catalogue · tone: playful-cinema · anchor: coral-pink 15°
+  page: Movie / Drama List — infinite scroll grid + filter sidebar sheet
+  mobile-first: 2-col portrait grid → 3-col md → 4-col lg
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Browse Dramas — SeryeKo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Geist:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:clip;background:oklch(10% 0.012 285);}
+body{
+  overflow-x:clip;min-height:100dvh;
+  color:oklch(94% 0.006 285);
+  font-family:"Geist",ui-sans-serif,system-ui,sans-serif;
+  font-size:16px;-webkit-font-smoothing:antialiased;
+  padding-bottom:calc(4rem + env(safe-area-inset-bottom));
+}
+:root{
+  --paper:oklch(10% 0.012 285);--paper-2:oklch(14% 0.013 285);--paper-3:oklch(18% 0.014 285);
+  --rule:oklch(28% 0.010 285);--muted:oklch(48% 0.008 285);--neutral:oklch(62% 0.006 285);
+  --ink:oklch(94% 0.006 285);--accent:oklch(68% 0.220 15);--accent-2:oklch(75% 0.180 20);
+  --focus:oklch(72% 0.210 15);
+  --font-d:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --font-b:"Geist",ui-sans-serif,system-ui,sans-serif;
+  --font-o:"Space Mono",ui-monospace,monospace;
+  --r-sm:0.375rem;--r-md:0.75rem;--r-lg:1.25rem;--r-xl:1.75rem;--r-pill:100vmax;
+  --dur:200ms;--ease:cubic-bezier(0.16,1,0.3,1);
+  --nav-h:4rem;
+}
+
+/* ── Top header ────────────────────────────────────────────── */
+.top-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:var(--nav-h);
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0 clamp(1rem,4vw,2rem);
+  background:oklch(10% 0.016 285/0.88);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid oklch(22% 0.010 285/0.6);
+}
+.back-btn{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--paper-2);border:1px solid var(--rule);
+  color:var(--neutral);cursor:pointer;text-decoration:none;flex-shrink:0;
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.back-btn:hover{background:var(--paper-3);color:var(--ink);}
+.back-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+.page-title{
+  font-family:var(--font-d);font-weight:800;font-size:1.15rem;
+  letter-spacing:-0.02em;color:var(--ink);flex:1;
+}
+.filter-btn{
+  display:flex;align-items:center;gap:0.375rem;
+  padding:0.45rem 0.875rem;
+  background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-pill);
+  font-family:var(--font-d);font-weight:600;font-size:0.78rem;
+  color:var(--neutral);cursor:pointer;white-space:nowrap;
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.filter-btn:hover{background:var(--paper-3);border-color:oklch(42% 0.012 285);color:var(--ink);}
+.filter-btn.active{
+  background:oklch(68% 0.220 15/0.1);
+  border-color:oklch(68% 0.220 15/0.4);
+  color:var(--accent);
+}
+.filter-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+
+/* ── Sort/filter strip ─────────────────────────────────────── */
+.filter-strip{
+  position:sticky;
+  top:var(--nav-h);z-index:90;
+  background:oklch(10% 0.013 285/0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid oklch(20% 0.010 285/0.5);
+  padding:0.625rem 0;
+}
+.filter-strip-inner{
+  display:flex;gap:0.5rem;
+  padding:0 clamp(1rem,4vw,2rem);
+  overflow-x:auto;scrollbar-width:none;
+}
+.filter-strip-inner::-webkit-scrollbar{display:none;}
+.fchip{
+  flex-shrink:0;
+  display:flex;align-items:center;gap:0.3rem;
+  padding:0.35rem 0.75rem;
+  border-radius:var(--r-pill);
+  background:var(--paper-2);border:1px solid var(--rule);
+  font-family:var(--font-d);font-weight:600;font-size:0.75rem;
+  color:var(--muted);cursor:pointer;white-space:nowrap;
+  transition:all var(--dur) var(--ease);
+}
+.fchip:hover{color:var(--neutral);border-color:oklch(42% 0.012 285);}
+.fchip.on{background:oklch(68% 0.220 15/0.12);border-color:oklch(68% 0.220 15/0.4);color:var(--accent);}
+.fchip:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+
+/* ── Result count ──────────────────────────────────────────── */
+.result-count{
+  padding:0.875rem clamp(1rem,4vw,2rem) 0;
+  font-family:var(--font-o);font-size:0.64rem;
+  color:var(--muted);letter-spacing:0.08em;
+}
+
+/* ── Drama grid ────────────────────────────────────────────── */
+.drama-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:0.75rem;
+  padding:0.75rem clamp(1rem,4vw,2rem);
+}
+@media(min-width:40rem){.drama-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(min-width:60rem){.drama-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;}}
+@media(min-width:80rem){.drama-grid{grid-template-columns:repeat(5,minmax(0,1fr));}}
+
+/* Drama card */
+.drama-card{
+  display:flex;flex-direction:column;
+  text-decoration:none;cursor:pointer;
+  border-radius:var(--r-md);overflow:hidden;
+}
+.dc-img{
+  width:100%;aspect-ratio:2/3;
+  position:relative;overflow:hidden;
+  border-radius:var(--r-md);margin-bottom:0.5rem;
+  background:var(--paper-2);
+}
+@media(hover:hover) and (pointer:fine){
+  .drama-card:hover .dc-img-inner{transform:scale(1.04);}
+}
+.dc-img-inner{
+  width:100%;height:100%;
+  transition:transform 350ms var(--ease);
+}
+.dc-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,oklch(6% 0.01 285/0.85) 0%,transparent 55%);
+}
+.dc-badge{
+  position:absolute;top:0.5rem;left:0.5rem;
+  font-family:var(--font-o);font-size:0.5rem;letter-spacing:0.08em;
+  text-transform:uppercase;color:oklch(8% 0.010 285);
+  border-radius:var(--r-pill);padding:0.15rem 0.4rem;font-weight:700;
+}
+.badge-hot{background:var(--accent);}
+.badge-new{background:oklch(65% 0.17 145);}
+.badge-top{background:oklch(60% 0.18 50);}
+.dc-episodes{
+  position:absolute;bottom:0.5rem;right:0.5rem;
+  font-family:var(--font-o);font-size:0.52rem;color:oklch(90% 0.005 285);
+}
+.dc-provider{
+  position:absolute;bottom:0.5rem;left:0.5rem;
+  font-family:var(--font-o);font-size:0.5rem;color:oklch(90% 0.005 285);
+  background:oklch(10% 0.012 285/0.72);border-radius:var(--r-pill);
+  padding:0.1rem 0.375rem;backdrop-filter:blur(4px);
+}
+/* Watchlist button on card – appears on hover desktop / always mobile */
+.dc-watchlist{
+  position:absolute;top:0.5rem;right:0.5rem;
+  width:28px;height:28px;border-radius:50%;
+  background:oklch(10% 0.012 285/0.7);
+  border:1px solid oklch(40% 0.010 285/0.5);
+  display:flex;align-items:center;justify-content:center;
+  color:oklch(90% 0.005 285);cursor:pointer;
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+  backdrop-filter:blur(4px);
+}
+.dc-watchlist:hover,.dc-watchlist.saved{background:var(--accent);border-color:var(--accent);color:oklch(8% 0.010 285);}
+@media(hover:hover) and (pointer:fine){
+  .dc-watchlist{opacity:0;transition:opacity var(--dur) var(--ease),background var(--dur) var(--ease);}
+  .drama-card:hover .dc-watchlist{opacity:1;}
+}
+.dc-title{
+  font-family:var(--font-d);font-weight:700;font-size:0.82rem;
+  color:var(--ink);line-height:1.3;
+  overflow:hidden;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;
+  margin-bottom:0.2rem;
+}
+.dc-meta{
+  font-size:0.68rem;color:var(--muted);
+  display:flex;align-items:center;gap:0.375rem;flex-wrap:wrap;
+}
+.dc-rating{
+  display:inline-flex;align-items:center;gap:0.15rem;
+  font-size:0.65rem;color:oklch(68% 0.18 50);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── Load more / infinite scroll indicator ─────────────────── */
+.load-more-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  padding:2rem clamp(1rem,4vw,2rem);
+  gap:1rem;
+}
+.load-spinner{
+  width:32px;height:32px;
+  border:3px solid oklch(28% 0.010 285);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+@media(prefers-reduced-motion:reduce){.load-spinner{animation:none;border-top-color:var(--accent);}}
+.load-label{font-family:var(--font-o);font-size:0.64rem;color:var(--muted);letter-spacing:0.1em;}
+
+/* ── Filter sheet (bottom drawer) ──────────────────────────── */
+.sheet-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:oklch(6% 0.008 285/0.85);
+  opacity:0;pointer-events:none;
+  transition:opacity var(--dur) var(--ease);
+}
+.sheet-overlay.open{opacity:1;pointer-events:auto;}
+
+.filter-sheet{
+  position:fixed;bottom:0;left:0;right:0;z-index:210;
+  background:oklch(16% 0.014 285);
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
+  border-top:1px solid oklch(30% 0.010 285);
+  padding:0 clamp(1.25rem,4vw,2rem) calc(1.5rem + env(safe-area-inset-bottom));
+  max-height:85dvh;overflow-y:auto;
+  transform:translateY(100%);
+  transition:transform 350ms var(--ease);
+}
+.filter-sheet.open{transform:translateY(0);}
+
+.sheet-handle{
+  width:40px;height:4px;border-radius:2px;
+  background:oklch(35% 0.010 285);
+  margin:0.75rem auto 1.25rem;
+}
+.sheet-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.5rem;
+}
+.sheet-title{
+  font-family:var(--font-d);font-weight:800;font-size:1.2rem;
+  letter-spacing:-0.02em;color:var(--ink);
+}
+.sheet-close{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--paper-3);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--neutral);transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.sheet-close:hover{background:oklch(24% 0.012 285);color:var(--ink);}
+.sheet-close:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+
+.filter-section{margin-bottom:1.75rem;}
+.filter-section-label{
+  font-family:var(--font-d);font-weight:700;font-size:0.78rem;
+  color:var(--neutral);letter-spacing:0.06em;text-transform:uppercase;
+  margin-bottom:0.75rem;
+}
+.filter-options{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.fo{
+  padding:0.4rem 0.875rem;
+  border-radius:var(--r-pill);
+  background:var(--paper-3);border:1.5px solid var(--rule);
+  font-family:var(--font-d);font-weight:600;font-size:0.8rem;
+  color:var(--muted);cursor:pointer;white-space:nowrap;
+  transition:all var(--dur) var(--ease);
+}
+.fo:hover{color:var(--neutral);border-color:oklch(42% 0.012 285);}
+.fo.on{
+  background:oklch(68% 0.220 15/0.12);
+  border-color:oklch(68% 0.220 15/0.4);
+  color:var(--accent);
+}
+.fo:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+
+.sheet-actions{
+  display:grid;grid-template-columns:1fr auto;gap:0.75rem;
+  margin-top:1rem;
+}
+.btn-apply{
+  padding:0.875rem;
+  background:var(--accent);border:none;border-radius:var(--r-pill);
+  font-family:var(--font-d);font-weight:700;font-size:1rem;
+  color:oklch(8% 0.010 285);cursor:pointer;
+  transition:background var(--dur) var(--ease);
+}
+.btn-apply:hover{background:var(--accent-2);}
+.btn-apply:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+.btn-reset{
+  padding:0.875rem 1.25rem;
+  background:transparent;border:1px solid var(--rule);border-radius:var(--r-pill);
+  font-family:var(--font-d);font-weight:600;font-size:0.9rem;
+  color:var(--muted);cursor:pointer;white-space:nowrap;
+  transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+.btn-reset:hover{color:var(--neutral);border-color:oklch(42% 0.012 285);}
+.btn-reset:focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+
+/* ── Bottom nav ────────────────────────────────────────────── */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  height:calc(var(--nav-h) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  background:oklch(12% 0.014 285/0.92);
+  backdrop-filter:blur(24px) saturate(1.4);
+  -webkit-backdrop-filter:blur(24px) saturate(1.4);
+  border-top:1px solid oklch(24% 0.010 285);
+  display:flex;align-items:center;z-index:200;
+}
+.bottom-nav-inner{display:flex;align-items:center;justify-content:space-around;width:100%;padding:0 0.5rem;}
+.nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:0.25rem;
+  padding:0.5rem 0.75rem;border-radius:var(--r-lg);
+  background:none;border:none;cursor:pointer;text-decoration:none;
+  color:var(--muted);
+  transition:color var(--dur) var(--ease),background var(--dur) var(--ease);
+  min-width:48px;-webkit-tap-highlight-color:transparent;
+}
+.nav-btn:hover,.nav-btn.active{color:var(--accent);}
+.nav-btn.active{background:oklch(68% 0.220 15/0.08);}
+.nav-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.nav-btn span{font-family:var(--font-d);font-size:0.6rem;font-weight:600;letter-spacing:0.02em;white-space:nowrap;}
+
+/* Genre colors */
+.gc-1{background:linear-gradient(160deg,oklch(38% 0.17 320),oklch(18% 0.09 300));}
+.gc-2{background:linear-gradient(160deg,oklch(42% 0.19 15),oklch(20% 0.10 350));}
+.gc-3{background:linear-gradient(160deg,oklch(36% 0.15 200),oklch(16% 0.08 220));}
+.gc-4{background:linear-gradient(160deg,oklch(40% 0.17 50),oklch(20% 0.09 30));}
+.gc-5{background:linear-gradient(160deg,oklch(35% 0.14 265),oklch(15% 0.08 250));}
+.gc-6{background:linear-gradient(160deg,oklch(43% 0.18 140),oklch(23% 0.10 160));}
+.gc-7{background:linear-gradient(160deg,oklch(38% 0.16 30),oklch(18% 0.09 20));}
+.gc-8{background:linear-gradient(160deg,oklch(41% 0.17 280),oklch(21% 0.09 260));}
+.gc-9{background:linear-gradient(160deg,oklch(37% 0.16 100),oklch(17% 0.08 90));}
+.gc-10{background:linear-gradient(160deg,oklch(44% 0.18 240),oklch(24% 0.10 250));}
+.gc-11{background:linear-gradient(160deg,oklch(39% 0.17 10),oklch(19% 0.09 5));}
+.gc-12{background:linear-gradient(160deg,oklch(36% 0.14 170),oklch(16% 0.08 180));}
+</style>
+</head>
+<body>
+
+<!-- Top header -->
+<header class="top-header">
+  <a href="03-home.html" class="back-btn" aria-label="Back to home">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+  </a>
+  <h1 class="page-title">Browse Dramas</h1>
+  <button class="filter-btn" id="filter-open-btn" aria-expanded="false" aria-haspopup="dialog" onclick="toggleSheet(true)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    Filter
+  </button>
+</header>
+
+<!-- Sort/filter chips -->
+<div class="filter-strip" role="toolbar" aria-label="Quick filters">
+  <div class="filter-strip-inner">
+    <button class="fchip on" onclick="chipToggle(this)">🔥 Trending</button>
+    <button class="fchip" onclick="chipToggle(this)">🇰🇷 Korean</button>
+    <button class="fchip" onclick="chipToggle(this)">🇨🇳 Chinese</button>
+    <button class="fchip" onclick="chipToggle(this)">🇹🇭 Thai</button>
+    <button class="fchip" onclick="chipToggle(this)">🇵🇭 Filipino</button>
+    <button class="fchip" onclick="chipToggle(this)">❤️ Romance</button>
+    <button class="fchip" onclick="chipToggle(this)">⚡ Action</button>
+    <button class="fchip" onclick="chipToggle(this)">🔮 Fantasy</button>
+    <button class="fchip" onclick="chipToggle(this)">✅ Completed</button>
+    <button class="fchip" onclick="chipToggle(this)">🆕 New</button>
+  </div>
+</div>
+
+<main>
+  <!-- Result count -->
+  <div class="result-count">SHOWING 2,847 DRAMAS</div>
+
+  <!-- Drama grid -->
+  <div class="drama-grid" id="drama-grid" role="list" aria-label="Drama catalog">
+
+    <!-- 12 cards — will repeat via JS "load more" sim -->
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="Crash Landing on You">
+      <div class="dc-img">
+        <div class="gc-1 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <div class="dc-badge badge-hot">🔥 Hot</div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">DramaBox</div>
+        <div class="dc-episodes">16 eps</div>
+      </div>
+      <div class="dc-title">Crash Landing on You</div>
+      <div class="dc-meta">🇰🇷 Romance · <span class="dc-rating">⭐ 9.1</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="My Bossy CEO">
+      <div class="dc-img">
+        <div class="gc-2 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <div class="dc-badge badge-new">NEW</div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">ShortMax</div>
+        <div class="dc-episodes">24 eps</div>
+      </div>
+      <div class="dc-title">My Bossy CEO Husband</div>
+      <div class="dc-meta">🇨🇳 Drama · <span class="dc-rating">⭐ 8.7</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="Flower of Evil">
+      <div class="dc-img">
+        <div class="gc-5 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <div class="dc-badge badge-top" style="background:oklch(65% 0.17 145);">TOP</div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">ReelShort</div>
+        <div class="dc-episodes">16 eps</div>
+      </div>
+      <div class="dc-title">Flower of Evil</div>
+      <div class="dc-meta">🇰🇷 Thriller · <span class="dc-rating">⭐ 9.3</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="Love O2O">
+      <div class="dc-img">
+        <div class="gc-6 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">DramaWave</div>
+        <div class="dc-episodes">30 eps</div>
+      </div>
+      <div class="dc-title">Love O2O</div>
+      <div class="dc-meta">🇨🇳 Romance · <span class="dc-rating">⭐ 8.5</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="Girl From Nowhere">
+      <div class="dc-img">
+        <div class="gc-7 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <div class="dc-badge" style="background:oklch(58% 0.16 260);">DARK</div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">FlickReels</div>
+        <div class="dc-episodes">14 eps</div>
+      </div>
+      <div class="dc-title">Girl From Nowhere</div>
+      <div class="dc-meta">🇹🇭 Thriller · <span class="dc-rating">⭐ 9.0</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="Descendants of the Sun">
+      <div class="dc-img">
+        <div class="gc-4 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">DramaBox</div>
+        <div class="dc-episodes">20 eps</div>
+      </div>
+      <div class="dc-title">Descendants of the Sun</div>
+      <div class="dc-meta">🇰🇷 Romance · <span class="dc-rating">⭐ 8.9</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="Vincenzo">
+      <div class="dc-img">
+        <div class="gc-8 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <div class="dc-badge badge-hot">🔥</div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">DramaBox</div>
+        <div class="dc-episodes">20 eps</div>
+      </div>
+      <div class="dc-title">Vincenzo</div>
+      <div class="dc-meta">🇰🇷 Action · <span class="dc-rating">⭐ 9.4</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="The Princess Hour">
+      <div class="dc-img">
+        <div class="gc-3 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <div class="dc-badge badge-new">NEW</div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">ShortMax</div>
+        <div class="dc-episodes">18 eps</div>
+      </div>
+      <div class="dc-title">The Princess Hour</div>
+      <div class="dc-meta">🇰🇷 Romance · <span class="dc-rating">⭐ 8.2</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="My Girlfriend is an Alien">
+      <div class="dc-img">
+        <div class="gc-9 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">DramaWave</div>
+        <div class="dc-episodes">28 eps</div>
+      </div>
+      <div class="dc-title">My Girlfriend is an Alien</div>
+      <div class="dc-meta">🇨🇳 Comedy · <span class="dc-rating">⭐ 8.6</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="Heartbeat">
+      <div class="dc-img">
+        <div class="gc-10 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">DramaBox</div>
+        <div class="dc-episodes">12 eps</div>
+      </div>
+      <div class="dc-title">Heartbeat</div>
+      <div class="dc-meta">🇰🇷 Romance · <span class="dc-rating">⭐ 8.0</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="Start-Up">
+      <div class="dc-img">
+        <div class="gc-11 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <div class="dc-badge badge-top" style="background:oklch(65% 0.17 145);">TOP</div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">ReelShort</div>
+        <div class="dc-episodes">16 eps</div>
+      </div>
+      <div class="dc-title">Start-Up</div>
+      <div class="dc-meta">🇰🇷 Romance · <span class="dc-rating">⭐ 8.4</span></div>
+    </a>
+
+    <a href="04-drama-detail.html" class="drama-card" role="listitem" aria-label="The Crowned Clown">
+      <div class="dc-img">
+        <div class="gc-12 dc-img-inner"></div>
+        <div class="dc-overlay"></div>
+        <button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="dc-provider">FlickReels</div>
+        <div class="dc-episodes">16 eps</div>
+      </div>
+      <div class="dc-title">The Crowned Clown</div>
+      <div class="dc-meta">🇰🇷 Historical · <span class="dc-rating">⭐ 9.0</span></div>
+    </a>
+
+  </div><!-- end drama-grid -->
+
+  <!-- Infinite scroll load indicator -->
+  <div class="load-more-wrap" id="load-indicator" aria-live="polite" aria-label="Loading more dramas">
+    <div class="load-spinner" aria-hidden="true"></div>
+    <span class="load-label">LOADING MORE DRAMAS…</span>
+  </div>
+
+</main>
+
+<!-- Filter sheet -->
+<div class="sheet-overlay" id="sheet-overlay" aria-hidden="true" onclick="toggleSheet(false)"></div>
+<div class="filter-sheet" id="filter-sheet" role="dialog" aria-modal="true" aria-label="Filter dramas" aria-hidden="true">
+  <div class="sheet-handle" aria-hidden="true"></div>
+  <div class="sheet-header">
+    <h2 class="sheet-title">Filter & Sort</h2>
+    <button class="sheet-close" onclick="toggleSheet(false)" aria-label="Close filter panel">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="filter-section">
+    <p class="filter-section-label">Sort by</p>
+    <div class="filter-options" role="radiogroup" aria-label="Sort options">
+      <button class="fo on">🔥 Trending</button>
+      <button class="fo">⭐ Top rated</button>
+      <button class="fo">🆕 Newest</button>
+      <button class="fo">🔤 A–Z</button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <p class="filter-section-label">Country</p>
+    <div class="filter-options">
+      <button class="fo on">🇰🇷 Korean</button>
+      <button class="fo">🇨🇳 Chinese</button>
+      <button class="fo">🇹🇭 Thai</button>
+      <button class="fo">🇯🇵 Japanese</button>
+      <button class="fo">🇵🇭 Filipino</button>
+      <button class="fo">🌏 All</button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <p class="filter-section-label">Genre</p>
+    <div class="filter-options">
+      <button class="fo on">❤️ Romance</button>
+      <button class="fo">⚡ Action</button>
+      <button class="fo">😂 Comedy</button>
+      <button class="fo">🔮 Fantasy</button>
+      <button class="fo">🔪 Thriller</button>
+      <button class="fo">👑 Historical</button>
+      <button class="fo">🏫 School</button>
+      <button class="fo">🕵️ Mystery</button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <p class="filter-section-label">Status</p>
+    <div class="filter-options">
+      <button class="fo on">✅ Completed</button>
+      <button class="fo">🔴 Ongoing</button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <p class="filter-section-label">Provider</p>
+    <div class="filter-options">
+      <button class="fo">DramaBox</button>
+      <button class="fo">ShortMax</button>
+      <button class="fo">ReelShort</button>
+      <button class="fo">FlickReels</button>
+      <button class="fo">DramaWave</button>
+      <button class="fo">MicroDrama</button>
+    </div>
+  </div>
+
+  <div class="sheet-actions">
+    <button class="btn-apply" onclick="toggleSheet(false)">Show results</button>
+    <button class="btn-reset" onclick="resetFilters()">Reset</button>
+  </div>
+</div>
+
+<!-- Bottom nav -->
+<nav class="bottom-nav" aria-label="Main navigation">
+  <div class="bottom-nav-inner">
+    <a href="03-home.html" class="nav-btn" aria-label="Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="03-movie-list.html" class="nav-btn active" aria-label="Browse" aria-current="page">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 2l-4 5-4-5"/></svg>
+      <span>Browse</span>
+    </a>
+    <a href="06-search.html" class="nav-btn" aria-label="Search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search</span>
+    </a>
+    <a href="07-profile.html" class="nav-btn" aria-label="Watchlist">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span>Watchlist</span>
+    </a>
+    <a href="07-profile.html" class="nav-btn" aria-label="Profile">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+  </div>
+</nav>
+
+<script>
+function toggleSheet(open){
+  const overlay=document.getElementById('sheet-overlay');
+  const sheet=document.getElementById('filter-sheet');
+  const btn=document.getElementById('filter-open-btn');
+  overlay.classList.toggle('open',open);
+  sheet.classList.toggle('open',open);
+  overlay.setAttribute('aria-hidden',(!open).toString());
+  sheet.setAttribute('aria-hidden',(!open).toString());
+  btn.setAttribute('aria-expanded',open.toString());
+  btn.classList.toggle('active',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+function chipToggle(el){el.classList.toggle('on');}
+function resetFilters(){
+  document.querySelectorAll('#filter-sheet .fo').forEach(f=>f.classList.remove('on'));
+}
+// Filter sheet options toggle
+document.querySelectorAll('#filter-sheet .fo').forEach(fo=>{
+  fo.addEventListener('click',()=>fo.classList.toggle('on'));
+});
+// Escape key closes sheet
+document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleSheet(false);});
+
+// Simulate infinite scroll with IntersectionObserver
+const indicator=document.getElementById('load-indicator');
+const grid=document.getElementById('drama-grid');
+const gcClasses=['gc-1','gc-2','gc-3','gc-4','gc-5','gc-6','gc-7','gc-8','gc-9','gc-10','gc-11','gc-12'];
+const titles=['Sweet Home','The Devil Judge','Itaewon Class','Hotel del Luna','My Misterious Boss','True Beauty','River Where the Moon Rises','Hometown Cha-Cha-Cha','Squid Game','Nevertheless'];
+const countries=['🇰🇷','🇨🇳','🇹🇭','🇵🇭','🇯🇵'];
+const genres=['Romance','Action','Comedy','Thriller','Fantasy','Historical','Drama'];
+const providers=['DramaBox','ShortMax','ReelShort','DramaWave','FlickReels'];
+let page=1,loading=false;
+
+const obs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!loading&&page<6){
+    loading=true;
+    setTimeout(()=>{
+      for(let i=0;i<6;i++){
+        const gc=gcClasses[(page*6+i)%12];
+        const title=titles[(page*6+i)%titles.length];
+        const country=countries[Math.floor(Math.random()*countries.length)];
+        const genre=genres[Math.floor(Math.random()*genres.length)];
+        const prov=providers[Math.floor(Math.random()*providers.length)];
+        const eps=Math.floor(Math.random()*30)+6;
+        const rating=(7.5+Math.random()*2).toFixed(1);
+        const card=document.createElement('a');
+        card.href='04-drama-detail.html';card.className='drama-card';card.setAttribute('role','listitem');
+        card.innerHTML=`<div class="dc-img"><div class="${gc} dc-img-inner"></div><div class="dc-overlay"></div><button class="dc-watchlist" onclick="event.preventDefault();this.classList.toggle('saved')" aria-label="Add to watchlist"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button><div class="dc-provider">${prov}</div><div class="dc-episodes">${eps} eps</div></div><div class="dc-title">${title}</div><div class="dc-meta">${country} ${genre} · <span class="dc-rating">⭐ ${rating}</span></div>`;
+        grid.appendChild(card);
+      }
+      page++;loading=false;
+      if(page>=6){obs.disconnect();indicator.innerHTML='<span class="load-label" style="color:var(--muted);">YOU\'VE REACHED THE END — FOR NOW!</span>';}
+    },800);
+  }
+},{rootMargin:'200px'});
+obs.observe(indicator);
+</script>
+</body>
+</html>

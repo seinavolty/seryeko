@@ -1,0 +1,29 @@
+app = "seryeko-api"
+primary_region = "sin"
+
+[build]
+
+[env]
+  ENVIRONMENT = "production"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "45s"
+    method = "GET"
+    path = "/health"
+
+[mounts]
+  source = "seryeko_data"
+  destination = "/data"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1024mb"
