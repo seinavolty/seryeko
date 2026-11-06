@@ -22,6 +22,8 @@ services:
     container_name: seryeko-api
     ports:
       - "8000:8000"
+    env_file:
+      - ./backend/.env
     environment:
       ENVIRONMENT: development
       DATABASE_URL: postgresql+psycopg://seryeko:seryeko_local_dev@db:5432/seryeko
