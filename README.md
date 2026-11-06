@@ -110,7 +110,7 @@ That is it! Open your browser:
 When the database is initialized for the first time, an administrator account is automatically created:
 
 - **Email:** `admin@seryeko.com`
-- **Password:** `admin123`
+- **Password:** `admin123456`
 
 > ⚠️ **Important**: Change this password immediately after first login via your Profile page or Admin Settings!
 
