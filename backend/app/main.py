@@ -121,6 +121,7 @@ dist_dir = os.getenv("FRONTEND_DIST_DIR", "")
 if dist_dir and os.path.exists(dist_dir):
     app.mount("/app", StaticFiles(directory=dist_dir, html=True), name="app")
 
+@app.get("/api/health")
 @app.get("/health")
 def health_check():
     return {
